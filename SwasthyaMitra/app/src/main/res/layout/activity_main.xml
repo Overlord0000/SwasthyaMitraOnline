@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/regback"
+    tools:context=".MainActivity">
+
+    <GridLayout
+        android:layout_width="350dp"
+        android:layout_height="600dp"
+        android:layout_marginTop="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:columnCount="2"
+        android:rowCount="4"
+        android:padding="16dp"
+        android:layout_gravity="center"
+        android:background="@drawable/glass_morph">
+
+
+        <RelativeLayout
+            android:layout_width="110dp"
+            android:layout_height="120dp"
+            android:layout_marginBottom="25dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_gravity="center">
+
+            <ImageButton
+                android:id="@+id/HealthProfilebtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/health_profile_icon"
+                android:scaleType="fitCenter"
+                android:contentDescription="@string/health_profile"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/health_profile"
+                android:gravity="center"
+                android:layout_gravity="bottom"
+                android:padding="5dp"
+                android:textColor="#000000"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="110dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="25dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp">
+
+            <ImageButton
+                android:id="@+id/MedicicineManagebtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/medication_icon"
+                android:scaleType="fitCenter"
+                android:contentDescription="@string/medication_management" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/medication_management"
+                android:gravity="center"
+                android:layout_gravity="bottom"
+                android:padding="5dp"
+                android:textColor="#000000"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="110dp"
+            android:layout_height="120dp"
+            android:layout_marginBottom="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_gravity="center">
+
+            <ImageButton
+                android:id="@+id/Appointmentsbtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/doctor_icon"
+                android:scaleType="fitCenter"
+                android:contentDescription="@string/doctors_and_appointments" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/doctors_and_appointments"
+                android:gravity="center"
+                android:layout_gravity="bottom"
+                android:padding="5dp"
+                android:textColor="#000000"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="110dp"
+            android:layout_height="120dp"
+            android:layout_marginBottom="25dp"
+            android:layout_gravity="center">
+
+            <ImageButton
+                android:id="@+id/EmergencyToolsbtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/emergency_icon"
+                android:scaleType="fitCenter"
+                android:contentDescription="@string/emergency_tools"
+                tools:ignore="ImageContrastCheck" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/emergency_tools"
+                android:gravity="center"
+                android:layout_gravity="bottom"
+                android:padding="5dp"
+                android:textColor="#000000"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="110dp"
+            android:layout_height="120dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginBottom="25dp"
+            android:layout_gravity="center">
+
+            <ImageButton
+                android:id="@+id/Wellnessbtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/wellness_icon"
+                android:scaleType="fitCenter"
+                android:contentDescription="Wellness"
+                tools:ignore="HardcodedText,ImageContrastCheck" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/wellness"
+                android:gravity="center"
+                android:layout_gravity="bottom"
+                android:padding="5dp"
+                android:textColor="#000000"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="110dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp">
+
+            <ImageButton
+                android:id="@+id/btnLogout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/logout2"
+                android:scaleType="fitCenter"
+                android:contentDescription="@string/logout"
+                tools:ignore="ImageContrastCheck" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/logout"
+                android:gravity="center"
+                android:layout_gravity="bottom"
+                android:padding="5dp"
+                android:textColor="#000000"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+    </GridLayout>
+
+</RelativeLayout>

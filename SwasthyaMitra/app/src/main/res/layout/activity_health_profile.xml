@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HealthProfileActivity">
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/regback">
+
+        <GridLayout
+            android:layout_width="350dp"
+            android:layout_height="500dp"
+            android:layout_marginTop="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:columnCount="2"
+            android:rowCount="2"
+            android:padding="16dp"
+            android:layout_gravity="center"
+            android:background="@drawable/glass_morph">
+
+
+            <RelativeLayout
+                android:layout_width="110dp"
+                android:layout_height="120dp"
+                android:layout_marginBottom="25dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="25dp"
+                android:layout_gravity="center">
+
+                <ImageButton
+                    android:id="@+id/UserInfobtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:src="@drawable/user"
+                    android:scaleType="fitCenter"
+                    android:contentDescription="User Profile"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_profile"
+                    android:gravity="center"
+                    android:layout_gravity="bottom"
+                    android:padding="5dp"
+                    android:textColor="#000000"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="110dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="25dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp">
+
+                <ImageButton
+                    android:id="@+id/MedicalHistorybtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/user_history"
+                    android:scaleType="fitCenter"
+                    android:contentDescription="Medical History"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/medical_history"
+                    android:gravity="center"
+                    android:layout_gravity="bottom"
+                    android:padding="5dp"
+                    android:textColor="#000000"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="110dp"
+                android:layout_height="120dp"
+                android:layout_marginBottom="25dp"
+                android:layout_marginLeft="25dp"
+                android:layout_gravity="center">
+
+                <ImageButton
+                    android:id="@+id/Allergiesbtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/allergies"
+                    android:scaleType="fitCenter"
+                    android:contentDescription="Allergies"
+                    tools:ignore="HardcodedText"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/allergies"
+                    android:gravity="center"
+                    android:layout_gravity="bottom"
+                    android:padding="5dp"
+                    android:textColor="#000000"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="110dp"
+                android:layout_height="120dp"
+                android:layout_marginBottom="25dp"
+                android:layout_gravity="center">
+
+                <ImageButton
+                    android:id="@+id/FamilyHistorybtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="family History"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/family"
+                    tools:ignore="HardcodedText,ImageContrastCheck,DuplicateSpeakableTextCheck" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/family_history"
+                    android:gravity="center"
+                    android:layout_gravity="bottom"
+                    android:padding="5dp"
+                    android:textColor="#000000"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+        </GridLayout>
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

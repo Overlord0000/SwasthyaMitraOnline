@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/regback"
+    tools:context=".RegistrationActivity">
+
+    <FrameLayout
+        android:layout_width="350dp"
+        android:layout_height="570dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="35dp"
+        android:background="@drawable/glass_morph">
+
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="570dp"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:text="@string/register"
+                android:textColor="#000000"
+                android:textSize="36sp"
+                android:textStyle="bold|italic" />
+
+            <EditText
+                android:id="@+id/etRegEmail"
+                android:layout_width="match_parent"
+                android:inputType="text"
+                android:layout_height="39dp"
+                android:layout_marginTop="45dp"
+                android:background="@drawable/input_bg"
+                android:drawableLeft="@drawable/ic_baseline_email_24"
+                android:drawablePadding="5dp"
+                android:textColor="@color/black"
+                android:hint="@string/enter_your_email"
+                android:paddingLeft="15dp"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <EditText
+                android:id="@+id/etRegPassword"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/input_bg"
+                android:textColor="@color/black"
+                android:drawableLeft="@drawable/ic_baseline_security_24"
+                android:drawablePadding="5dp"
+                android:hint="Enter Password"
+                android:inputType="textPassword"
+                android:paddingLeft="15dp"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <EditText
+                android:id="@+id/etRegPassword2"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/input_bg"
+                android:textColor="@color/black"
+                android:drawableLeft="@drawable/ic_baseline_security_24"
+                android:drawablePadding="5dp"
+                android:hint="@string/confirm_password"
+                android:inputType="textPassword"
+                android:paddingLeft="15dp"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/btnRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/register"/>
+
+            <TextView
+                android:id="@+id/tvLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="@string/already_a_user_login"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</RelativeLayout>

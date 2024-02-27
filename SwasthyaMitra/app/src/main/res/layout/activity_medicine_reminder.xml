@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MedicineReminderActivity"
+    android:layout_gravity="center"
+    android:background="@drawable/regback">
+
+
+
+    <LinearLayout
+        android:layout_width="375dp"
+        android:layout_height="500dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/glass_morph">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/medicine_reminder"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            />
+        <EditText
+            android:id="@+id/etMedicineName"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:textColor="@color/black"
+            android:background="@drawable/input_bg"
+            android:paddingStart="10dp"
+            android:inputType="text"
+            android:hint="@string/name"/>
+
+        <EditText
+            android:id="@+id/etDosageNumber"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:background="@drawable/input_bg"
+            android:paddingStart="10dp"
+            android:textColor="@color/black"
+            android:layout_below="@+id/etMedicineName"
+            android:layout_marginTop="16dp"
+            android:hint="No. of doces"
+            android:inputType="number"/>
+
+        <ToggleButton
+            android:id="@+id/toggleDosageType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etDosageNumber"
+            android:layout_marginTop="8dp"
+            android:textOn="ml"
+            android:textOff="Number"
+            android:checked="false"/>
+
+        <EditText
+            android:id="@+id/etDosageML"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toggleDosageType"
+            android:layout_marginTop="8dp"
+            android:hint="Dosage (ml)"
+            android:inputType="number"
+            android:visibility="gone"/>
+
+        <EditText
+            android:id="@+id/etFrequency"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:background="@drawable/input_bg"
+            android:paddingStart="10dp"
+            android:textColor="@color/black"
+            android:layout_below="@+id/etDosageML"
+            android:layout_marginTop="16dp"
+            android:inputType="number"
+            android:hint="@string/frequency"/>
+
+        <EditText
+            android:id="@+id/etTime"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:background="@drawable/input_bg"
+            android:paddingStart="10dp"
+            android:textColor="@color/black"
+            android:layout_below="@+id/etFrequency"
+            android:layout_marginTop="16dp"
+            android:inputType="time"
+            android:hint="Time (HH:MM)"/>
+
+        <Button
+            android:id="@+id/btnSaveReminder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etTime"
+            android:layout_marginTop="24dp"
+            android:text="@string/save_reminder"/>
+    </LinearLayout>
+
+</RelativeLayout>
+
+

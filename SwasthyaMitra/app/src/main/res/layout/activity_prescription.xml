@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/regback"
+    tools:context=".PrescriptionActivity">
+
+    <GridLayout
+        android:layout_width="350dp"
+        android:layout_height="400dp"
+        android:layout_marginTop="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:columnCount="2"
+        android:padding="16dp"
+        android:layout_gravity="center"
+        android:background="@drawable/glass_morph">
+
+
+        <RelativeLayout
+            android:layout_width="110dp"
+            android:layout_height="120dp"
+            android:layout_marginBottom="25dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_gravity="center">
+
+            <ImageButton
+                android:id="@+id/CurrentMedicinebtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:src="@drawable/current_medicine"
+                android:scaleType="fitCenter"
+                android:contentDescription="Current Medicine"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/current_medicine"
+                android:gravity="center"
+                android:layout_gravity="bottom"
+                android:padding="5dp"
+                android:textColor="#000000"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="110dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="25dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp">
+
+            <ImageButton
+                android:id="@+id/PastMedicinebtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/past_medicine"
+                android:scaleType="fitCenter"
+                android:contentDescription="@string/past_medicine"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/past_medicine"
+                android:gravity="center"
+                android:layout_gravity="bottom"
+                android:padding="5dp"
+                android:textColor="#000000"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+    </GridLayout>
+
+</RelativeLayout>

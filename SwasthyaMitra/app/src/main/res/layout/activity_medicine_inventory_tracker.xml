@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center"
+    android:background="@drawable/regback">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:orientation="vertical"
+        android:background="@drawable/glass_morph"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/medicine_inventory"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/medication_name"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etMedicationName"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:textColor="@color/black"
+            android:background="@drawable/input_bg"
+            android:paddingStart="10dp"
+            android:inputType="text"
+            android:hint="Enter Name Here"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dosage"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etDosage"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:textColor="@color/black"
+            android:background="@drawable/input_bg"
+            android:paddingStart="10dp"
+            android:inputType="number"
+            android:hint="eg.1 or 0.5"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/quantity"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etQuantity"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:textColor="@color/black"
+            android:background="@drawable/input_bg"
+            android:paddingStart="10dp"
+            android:inputType="number"
+            android:hint="eg.10"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/expiration_date"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etExpirationDate"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:textColor="@color/black"
+            android:background="@drawable/input_bg"
+            android:paddingStart="10dp"
+            android:inputType="date"
+            android:hint="@string/select_month_and_year"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/notes"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etNotes"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:textColor="@color/black"
+            android:background="@drawable/input_bg"
+            android:paddingStart="10dp"
+            android:inputType="textMultiLine"
+            android:hint="Enter Notes"
+            android:layout_marginBottom="16dp" />
+
+        <Button
+            android:id="@+id/btnSaveMedication"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/save_medication" />
+
+    </LinearLayout>
+
+</LinearLayout>

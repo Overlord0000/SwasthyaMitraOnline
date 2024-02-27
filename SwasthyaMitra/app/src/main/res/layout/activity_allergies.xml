@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AllergiesActivity"
+    android:background="@drawable/regback">
+
+    <View
+        android:layout_width="375dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/glass_morph" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your Allergy"
+                android:layout_gravity="center"
+                android:textSize="24dp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"/>
+
+
+
+            <TextView
+                android:id="@+id/textViewAllergyType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Type of Allergy:"
+                android:textSize="18sp"
+                android:textStyle="bold"
+
+                android:layout_marginTop="16dp"/>
+
+            <CheckBox
+                android:id="@+id/checkBoxFood"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Food"/>
+
+            <CheckBox
+                android:id="@+id/checkBoxDrug"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Drug"/>
+
+            <CheckBox
+                android:id="@+id/checkBoxEnvironmental"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Environmental"/>
+
+            <CheckBox
+                android:id="@+id/checkBoxInsect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Insect"/>
+
+
+            <TextView
+                android:id="@+id/textViewSeverity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Severity:"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"/>
+
+            <Spinner
+                android:id="@+id/spinnerSeverity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:entries="@array/spinnerSeverity" />
+
+
+            <TextView
+                android:id="@+id/textViewAllergen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Allergen:"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"/>
+
+            <EditText
+                android:id="@+id/editTextAllergen"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:textColor="@color/black"
+                android:background="@drawable/input_bg"
+                android:paddingStart="10dp"
+                android:hint="Enter Allergen"/>
+
+
+            <TextView
+                android:id="@+id/textViewSymptoms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Symptoms:"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"/>
+
+            <EditText
+                android:id="@+id/editTextSymptoms"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:textColor="@color/black"
+                android:background="@drawable/input_bg"
+                android:paddingStart="10dp"
+                android:hint="Enter Symptoms"/>
+
+            <TextView
+                android:id="@+id/textViewTriggers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Triggers:"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"/>
+
+            <EditText
+                android:id="@+id/editTextTriggers"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:textColor="@color/black"
+                android:background="@drawable/input_bg"
+                android:paddingStart="10dp"
+                android:hint="Enter Triggers"/>
+
+
+            <TextView
+                android:id="@+id/textViewPreviousReactions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Previous Reactions:"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"/>
+
+            <EditText
+                android:id="@+id/editTextPreviousReactions"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:textColor="@color/black"
+                android:background="@drawable/input_bg"
+                android:paddingStart="10dp"
+                android:hint="Enter Previous Reactions"/>
+
+
+            <TextView
+                android:id="@+id/textViewTreatmentPlan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Treatment Plan:"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"/>
+
+            <EditText
+                android:id="@+id/editTextTreatmentPlan"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:textColor="@color/black"
+                android:background="@drawable/input_bg"
+                android:hint="Enter Treatment Plan"/>
+
+            <TextView
+                android:id="@+id/textViewMedications"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Medications:"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"/>
+
+            <EditText
+                android:id="@+id/editTextMedications"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:textColor="@color/black"
+                android:background="@drawable/input_bg"
+                android:hint="Enter Medications"/>
+
+
+            <Button
+                android:id="@+id/buttonSaveAllergy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Save"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>

@@ -1,0 +1,254 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:paddingLeft="10dp"
+    tools:context=".MedicalHistoryActivity"
+    android:background="@drawable/regback">
+
+    <View
+        android:layout_width="375dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/glass_morph"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/medical_history"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:gravity="center"
+                />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/do_you_have_any_existing_medical_conditions_e_g_diabetes_hypertension_asthma"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/ExistingMedicalConditions"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:paddingStart="10dp"
+                android:hint="@string/enter_details_if_any"
+                android:background="@drawable/input_bg"
+                android:inputType="textMultiLine" />
+
+            <!-- Question 2: Hospitalization or Surgery -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/have_you_ever_been_hospitalized_or_had_surgery_if_yes_please_provide_details"
+                android:textSize="18sp"
+                android:layout_marginTop="16dp" />
+
+            <EditText
+                android:id="@+id/HospitalizationDetails"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:paddingStart="10dp"
+                android:background="@drawable/input_bg"
+                android:hint="@string/enter_details_if_any"
+                android:inputType="textMultiLine" />
+
+            <!-- Question 3: Current Medications -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/are_you_currently_taking_any_medications_if_yes_please_list_them"
+                android:textSize="18sp"
+                android:layout_marginTop="16dp" />
+
+            <EditText
+                android:id="@+id/CurrentMedications"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:paddingStart="10dp"
+                android:hint="@string/enter_details_if_any"
+                android:background="@drawable/input_bg"
+                android:inputType="textMultiLine" />
+
+            <!-- Question 4: Known Allergies -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/do_you_have_any_known_allergies_medications_food_environmental"
+                android:textSize="18sp"
+                android:layout_marginTop="16dp" />
+
+            <EditText
+                android:id="@+id/KnownAllergies"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:paddingStart="10dp"
+                android:hint="@string/enter_details_if_any"
+                android:background="@drawable/input_bg"
+                android:inputType="textMultiLine" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/do_you_smoke_or_have_a_history_of_smoking"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupSmoking"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioSmokingYes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/yes" />
+
+                <RadioButton
+                    android:id="@+id/radioSmokingNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no" />
+            </RadioGroup>
+
+            <!-- Question 2: Alcohol Consumption -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/how_often_do_you_consume_alcohol"
+                android:textSize="18sp"
+                android:layout_marginTop="16dp" />
+
+            <Spinner
+                android:id="@+id/spinnerAlcoholConsumption"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:paddingStart="10dp"
+                android:hint="@string/select_frequency"
+                android:background="@drawable/input_bg"
+                android:entries="@array/alcohol_consumption_options" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/what_is_your_level_of_physical_activity_sedentary_moderate_active"
+                android:textSize="18sp"
+                android:layout_marginTop="16dp" />
+
+            <Spinner
+                android:id="@+id/spinnerPhysicalActivity"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:paddingStart="10dp"
+                android:hint="@string/select_activity_level"
+                android:background="@drawable/input_bg"
+                android:entries="@array/physical_activity_options" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/dietary_habits"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <!-- Question 1: Typical Daily Diet -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/describe_your_typical_daily_diet"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/TypicalDailyDiet"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:paddingStart="10dp"
+                android:hint="@string/enter_details"
+                android:background="@drawable/input_bg"
+                android:inputType="textMultiLine" />
+
+            <!-- Question 2: Dietary Restrictions or Preferences -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/are_there_any_specific_dietary_restrictions_or_preferences"
+                android:textSize="18sp"
+                android:layout_marginTop="16dp" />
+
+            <EditText
+                android:id="@+id/DietaryRestrictions"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:paddingStart="10dp"
+                android:background="@drawable/input_bg"
+                android:hint="@string/enter_restrictions_or_preferences"
+                android:inputType="textMultiLine" />
+
+            <!-- Previous Medical Tests Section -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/nprevious_medical_tests"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp" />
+
+            <!-- Question 3: Last Comprehensive Medical Check-up -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/when_was_your_last_comprehensive_medical_check_up"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/LastMedicalCheckup"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:paddingStart="10dp"
+                android:hint="@string/enter_details"
+                android:background="@drawable/input_bg"
+                android:inputType="text" />
+
+            <!-- Question 4: Recent Medical Tests or Screenings -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/have_you_had_any_recent_medical_tests_or_screenings_if_yes_please_provide_details"
+                android:textSize="18sp"
+                android:layout_marginTop="16dp" />
+
+            <EditText
+                android:id="@+id/RecentMedicalTests"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:paddingStart="10dp"
+                android:hint="@string/enter_details"
+                android:background="@drawable/input_bg"
+                android:inputType="textMultiLine" />
+
+            <Button
+                android:id="@+id/buttonSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/save"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

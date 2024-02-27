@@ -1,0 +1,146 @@
+<resources>
+    <string name="app_name">SwasthyaMitra</string>
+    <string name="health_profile">Health Profile</string>
+    <string name="medication_management">Medication Management</string>
+    <string name="doctors_and_appointments">Doctors and Appointments</string>
+    <string name="emergency_tools">Emergency Tools</string>
+    <string name="wellness">Wellness</string>
+    <string name="logout">Logout</string>
+    <string name="verify_user">Verify User</string>
+    <string name="user_name">User Name</string>
+    <string name="phone_no">Phone No.</string>
+    <string name="verify_code">Verify Code</string>
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="new_user_register">New User? Register</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="register">Register</string>
+    <string name="confirm_password">confirm Password</string>
+    <string name="already_a_user_login">Already a User? Login</string>
+    <string name="email">Email</string>
+    <string name="verify_otp">Verify OTP</string>
+    <string name="verification_code">Verification Code</string>
+    <string name="Continue">Continue</string>
+    <string name="back_to_login">Back to login</string>
+    <string name="appointments">Appointments</string>
+    <string name="doctors_note">Doctors Note</string>
+    <string name="emergency_procedures">Emergency Procedures</string>
+    <string name="medi_card">Medi Card</string>
+    <string name="cpr">CPR</string>
+    <string name="choking_relief">Choking Relief</string>
+    <string name="control_of_bleeding">Control of Bleeding</string>
+    <string name="treatment_for_shock">Treatment for Shock</string>
+    <string name="basic_burn_care">Basic Burn Care</string>
+    <string name="seizure_management">Seizure Management</string>
+    <string name="stroke_recognition">Stroke Recognition</string>
+    <string name="fracture_management">Fracture Management</string>
+    <string name="heatstroke_or_hypothermia">Heatstroke_or_Hypothermia</string>
+    <string name="family_history">Family History</string>
+    <string name="chronic_conditions">Chronic Conditions:</string>
+    <string name="does_anyone_in_your_family_have_a_history_of_chronic_illnesses_e_g_diabetes_hypertension_heart_disease_cancer">Does anyone in your family have a history of chronic illnesses (e.g., diabetes, hypertension, heart disease, cancer)?</string>
+    <string name="are_there_any_hereditary_conditions_that_run_in_your_family">Are there any hereditary conditions that run in your family?</string>
+    <string name="save">Save</string>
+    <string name="enter_details_if_any">Enter details if any</string>
+    <string name="are_there_instances_of_neurological_conditions_such_as_alzheimer_s_disease_parkinson_s_disease_or_epilepsy_in_your_family">Are there instances of neurological conditions such as Alzheimer\'s disease, Parkinson\'s disease, or epilepsy in your family?</string>
+    <string name="neurological_conditions">Neurological Conditions:</string>
+    <string name="have_any_family_members_undergone_genetic_testing_for_cancer_susceptibility">Have any family members undergone genetic testing for cancer susceptibility?</string>
+    <string name="is_there_a_history_of_cancer_in_your_family_if_yes_specify_the_type_and_affected_family_members">Is there a history of cancer in your family? If yes, specify the type and affected family members.</string>
+    <string name="cancer_history">Cancer History:</string>
+    <string name="are_there_family_members_with_high_cholesterol_or_blood_pressure_issues">Are there family members with high cholesterol or blood pressure issues?</string>
+    <string name="has_anyone_in_your_family_experienced_heart_attacks_or_strokes">Has anyone in your family experienced heart attacks or strokes?</string>
+    <string name="ncardiovascular_health">\nCardiovascular Health:</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="allergies">Allergies</string>
+    <string name="medical_history">Medical History</string>
+    <string name="user_profile">User Profile</string>
+    <string name="enter_your_password">Enter your Password</string>
+    <string name="enter_your_email">Enter your Email</string>
+    <string name="name">Name:</string>
+    <string name="address">Address:</string>
+    <string name="gender">Gender:</string>
+    <string name="blood_group">Blood Group:</string>
+    <string name="generate_and_export">Generate And Export</string>
+    <string name="do_you_have_any_existing_medical_conditions_e_g_diabetes_hypertension_asthma">Do you have any existing medical conditions (e.g., diabetes, hypertension, asthma)?</string>
+    <string name="have_you_ever_been_hospitalized_or_had_surgery_if_yes_please_provide_details">Have you ever been hospitalized or had surgery? If yes, please provide details.</string>
+    <string name="are_you_currently_taking_any_medications_if_yes_please_list_them">Are you currently taking any medications? If yes, please list them.</string>
+    <string name="do_you_have_any_known_allergies_medications_food_environmental">Do you have any known allergies (medications, food, environmental)?</string>
+    <string name="do_you_smoke_or_have_a_history_of_smoking">Do you smoke or have a history of smoking?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="how_often_do_you_consume_alcohol">How often do you consume alcohol?</string>
+    <string name="select_frequency">Select frequency</string>
+    <string name="what_is_your_level_of_physical_activity_sedentary_moderate_active">What is your level of physical activity (sedentary, moderate, active)?</string>
+    <string name="select_activity_level">Select activity level</string>
+    <string name="dietary_habits">Dietary Habits:</string>
+    <string name="describe_your_typical_daily_diet">Describe your typical daily diet.</string>
+    <string name="enter_details">Enter details</string>
+    <string name="are_there_any_specific_dietary_restrictions_or_preferences">Are there any specific dietary restrictions or preferences?</string>
+    <string name="enter_restrictions_or_preferences">Enter restrictions or preferences</string>
+    <string name="nprevious_medical_tests">\nPrevious Medical Tests:</string>
+    <string name="when_was_your_last_comprehensive_medical_check_up">When was your last comprehensive medical check-up?</string>
+    <string name="have_you_had_any_recent_medical_tests_or_screenings_if_yes_please_provide_details">Have you had any recent medical tests or screenings? If yes, please provide details.</string>
+    <string name="prescriptions">Prescriptions</string>
+    <string name="medicine_reminders">Medicine reminders</string>
+    <string name="medicine_inventory_tracker">Medicine Inventory Tracker</string>
+    <string name="stock_alert">Stock Alert</string>
+    <string name="medication_name">Medication Name</string>
+    <string name="medicine_inventory">Medicine Inventory</string>
+    <string name="select_month_and_year">Select Month and Year</string>
+    <string name="expiration_date">Expiration Date</string>
+    <string name="notes">Notes</string>
+    <string name="quantity">Quantity</string>
+    <string name="dosage">Dosage</string>
+    <string name="save_medication">Save Medication</string>
+    <string name="medicine_reminder">Medicine Reminder</string>
+    <string name="frequency">Frequency</string>
+    <string name="save_reminder">Save Reminder</string>
+    <string name="past_medicine">Past Medicine</string>
+    <string name="enter_medication_name">Enter medication name</string>
+    <string name="enter_dosage">Enter dosage</string>
+    <string name="select_start_date">Select start date</string>
+    <string name="select_end_date">Select end date</string>
+    <string name="enter_notes">Enter notes</string>
+    <string name="current_medicine">Current Medicine</string>
+    <string name="enter_your_number">Enter Your number</string>
+
+    <string-array name="blood_groups">
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+        <item>O+</item>
+        <item>O-</item>
+    </string-array>
+
+    <string-array name="allergy_types">
+        <item>Food Allergy</item>
+        <item>Drug Allergy</item>
+        <item>Environmental Allergy</item>
+        <item>Insect Allergy</item>
+    </string-array>
+
+    <string-array name="alcohol_consumption_options">
+        <item>Never</item>
+        <item>Occasionally</item>
+        <item>Regularly</item>
+        <item>Excessively</item>
+    </string-array>
+
+    <string-array name="physical_activity_options">
+        <item>Sedentary</item>
+        <item>Moderate</item>
+        <item>Active</item>
+    </string-array>
+
+
+    <string-array name="spinnerSeverity">
+        <item>Mild</item>
+        <item>Moderate</item>
+        <item>Severe</item>
+
+
+    </string-array>
+</resources>
