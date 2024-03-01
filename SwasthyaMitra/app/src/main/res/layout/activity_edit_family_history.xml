@@ -1,0 +1,200 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:paddingLeft="10dp"
+    android:background="@drawable/regback"
+    tools:context=".EditFamilyHistoryActivity">
+
+    <View
+        android:layout_width="375dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/glass_morph"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/family_history"
+                android:gravity="center"
+                android:textSize="30dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/chronic_conditions"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <!-- Question 1: Chronic Illnesses -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:paddingStart="10dp"
+                android:text="@string/does_anyone_in_your_family_have_a_history_of_chronic_illnesses_e_g_diabetes_hypertension_heart_disease_cancer"
+                android:textSize="18sp"
+                />
+
+            <EditText
+                android:id="@+id/ChronicIllnesses"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:paddingStart="10dp"
+                android:hint="@string/enter_details_if_any"
+                android:background="@drawable/input_bg"
+                android:inputType="textMultiLine" />
+
+            <!-- Question 2: Hereditary Conditions -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/are_there_any_hereditary_conditions_that_run_in_your_family"
+                android:textSize="18sp"
+                android:layout_marginTop="16dp" />
+
+            <EditText
+                android:id="@+id/HereditaryConditions"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:paddingStart="10dp"
+                android:hint="@string/enter_details_if_any"
+                android:background="@drawable/input_bg"
+                android:inputType="textMultiLine" />
+
+            <!-- Cardiovascular Health Section -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ncardiovascular_health"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp" />
+
+            <!-- Question 3: Heart Attacks or Strokes -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/has_anyone_in_your_family_experienced_heart_attacks_or_strokes"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/HeartAttacksStrokes"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:paddingStart="10dp"
+                android:hint="@string/enter_details_if_any"
+                android:background="@drawable/input_bg"
+                android:inputType="textMultiLine" />
+
+            <!-- Question 4: High Cholesterol or Blood Pressure -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/are_there_family_members_with_high_cholesterol_or_blood_pressure_issues"
+                android:textSize="18sp"
+                android:layout_marginTop="16dp" />
+
+            <EditText
+                android:id="@+id/HighCholesterolBloodPressure"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:paddingStart="10dp"
+                android:hint="@string/enter_details_if_any"
+                android:inputType="textMultiLine"
+                android:background="@drawable/input_bg"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/cancer_history"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <!-- Question 1: History of Cancer -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/is_there_a_history_of_cancer_in_your_family_if_yes_specify_the_type_and_affected_family_members"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/CancerHistory"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:paddingStart="10dp"
+                android:hint="@string/enter_details_if_any"
+                android:inputType="textMultiLine"
+                android:background="@drawable/input_bg"
+                />
+
+            <!-- Question 2: Genetic Testing for Cancer Susceptibility -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/have_any_family_members_undergone_genetic_testing_for_cancer_susceptibility"
+                android:textSize="18sp"
+                android:layout_marginTop="16dp" />
+
+            <EditText
+                android:id="@+id/GeneticTesting"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:paddingStart="10dp"
+                android:hint="@string/enter_details_if_any"
+                android:inputType="textMultiLine"
+                android:background="@drawable/input_bg"
+                />
+
+            <!-- Neurological Conditions Section -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/neurological_conditions"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp" />
+
+            <!-- Question 3: Neurological Conditions -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/are_there_instances_of_neurological_conditions_such_as_alzheimer_s_disease_parkinson_s_disease_or_epilepsy_in_your_family"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/EdNeurologicalConditions"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:paddingStart="10dp"
+                android:background="@drawable/input_bg"
+                android:hint="@string/enter_details_if_any"
+                android:inputType="textMultiLine"
+                />
+
+            <Button
+                android:id="@+id/buttonUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="save and Update"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

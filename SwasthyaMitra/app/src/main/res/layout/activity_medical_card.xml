@@ -33,7 +33,7 @@
                 android:id="@+id/FullName"
                 android:layout_width="170dp"
                 android:layout_height="25dp"
-                android:text="@string/name"
+                android:text="name:"
                 android:paddingStart="8dp"
                 android:layout_marginBottom="5dp"/>
 
@@ -41,7 +41,7 @@
                 android:id="@+id/EmergencyContact"
                 android:layout_width="170dp"
                 android:layout_height="25dp"
-                android:text="@string/phone_no"
+                android:text="phone no:"
                 android:paddingStart="8dp"
                 android:layout_marginBottom="5dp"
                 />
@@ -49,7 +49,7 @@
                 android:id="@+id/Adddress"
                 android:layout_width="170dp"
                 android:layout_height="25dp"
-                android:text="@string/address"
+                android:text="address:"
                 android:paddingStart="8dp"
                 android:layout_marginBottom="5dp"/>
 
@@ -57,7 +57,7 @@
                 android:id="@+id/Gender"
                 android:layout_width="170dp"
                 android:layout_height="25dp"
-                android:text="@string/gender"
+                android:text="gender:"
                 android:paddingStart="8dp"
                 android:layout_marginBottom="5dp"/>
 
@@ -65,7 +65,7 @@
                 android:id="@+id/BloodGroup"
                 android:layout_width="170dp"
                 android:layout_height="25dp"
-                android:text="@string/blood_group"
+                android:text="blood group:"
                 android:paddingStart="8dp"
                 />
         </LinearLayout>
@@ -76,6 +76,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/generate_and_export"/>
+        android:text="generate"/>
 </LinearLayout>
 

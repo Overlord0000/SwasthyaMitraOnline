@@ -50,7 +50,7 @@ public class MedicalHistoryActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
-            mUserMedicalHistoryRef = mDatabase.getReference().child("users").child(userId).child("medical_history");
+            mUserMedicalHistoryRef = mDatabase.getReference().child("MedicalHistory").child(userId).child("medical_history");
         }
 
         existingMedicalConditions = findViewById(R.id.ExistingMedicalConditions);

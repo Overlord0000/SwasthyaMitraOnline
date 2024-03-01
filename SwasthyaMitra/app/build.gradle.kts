@@ -44,10 +44,10 @@ dependencies {
     implementation ("com.github.bumptech.glide:glide:4.12.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
     implementation ("com.google.zxing:core:3.4.1")
-    implementation ("com.itextpdf:itext7-core:7.1.15")
-    implementation ("com.itextpdf:itext7-layout:7.1.15")
-    implementation ("com.itextpdf:itext7-fonts:7.1.15")
-    implementation("com.itextpdf:itext7-barcode:7.1.15")
+   // implementation ("com.itextpdf:itext7-core")
+   // implementation ("com.itextpdf:itext7-layout")
+   // implementation ("com.itextpdf:itext7-fonts")
+   // implementation("com.itextpdf:itext7-barcode")
 
 
 }

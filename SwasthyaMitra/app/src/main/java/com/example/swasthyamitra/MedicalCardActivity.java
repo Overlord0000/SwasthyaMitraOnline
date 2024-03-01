@@ -1,9 +1,12 @@
 package com.example.swasthyamitra;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -11,156 +14,142 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.BarcodeFormat;
-import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Locale;
+import java.util.HashMap;
+import java.util.Map;
 
-public class QRCodeAndPDFActivity extends AppCompatActivity {
+public class MedicalCardActivity extends AppCompatActivity {
 
-    private static final String TAG = "QRCodeAndPDFActivity";
-    private static final String FILE_NAME = "user_profile.pdf";
+    private static final String TAG = "MedicalCardActivity";
 
-    private FirebaseFirestore db;
+    private Button generateButton; // Button text updated to "Generate"
+    private ImageView qrImageView;
+    private TextView fullNameTextView, emergencyContactTextView, addressTextView, genderTextView, bloodGroupTextView;
 
-    private TextView nameTextView;
-    private TextView phoneNumberTextView;
-    private TextView addressTextView;
-    private TextView genderTextView;
-    private TextView bloodGroupTextView;
-    private ImageView qrCodeImageView;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference medicalHistoryRef;
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase mDatabase;
+    private String userId; // Replace with your current user identification method
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medical_card);
 
-        db = FirebaseFirestore.getInstance();
 
-        nameTextView = findViewById(R.id.FullName);
-        phoneNumberTextView = findViewById(R.id.EmergencyContact);
+        // Initialize Firebase Database
+        firebaseDatabase = FirebaseDatabase.getInstance();
+
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance();
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            userId = currentUser.getUid();
+        } else {
+            // Handle the case where the user is not signed in
+            // For example, redirect the user to the login screen
+            Toast.makeText(this, "unable to get data", Toast.LENGTH_SHORT).show();
+
+        }
+
+
+        // Initialize views
+        generateButton = findViewById(R.id.generateAndExportButton); // Button reference updated
+        qrImageView = findViewById(R.id.QR);
+        fullNameTextView = findViewById(R.id.FullName);
+        emergencyContactTextView = findViewById(R.id.EmergencyContact);
         addressTextView = findViewById(R.id.Adddress);
         genderTextView = findViewById(R.id.Gender);
         bloodGroupTextView = findViewById(R.id.BloodGroup);
-        qrCodeImageView = findViewById(R.id.QR);
 
-        // Load user profile data
-        loadUserProfileData();
+        // Get user ID (replace with your implementation)
 
-        // Generate and display QR code from medical history data
-        generateQRCodeFromMedicalHistory();
+        // Get reference to Firebase Database node (child path updated to "MedicalHistory" for accuracy)
+        medicalHistoryRef = firebaseDatabase.getReference().child("MedicalHistory").child(userId).child("medical_history");
+
+        // Fetch medical history data and generate QR code on button click
+        generateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fetchMedicalHistoryAndGenerateQRCode(); // Method name updated for clarity
+            }
+        });
     }
 
-    private void loadUserProfileData() {
-        db.collection("UserProfile").document("user_id")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document != null && document.exists()) {
-                                String name = document.getString("name");
-                                String phoneNumber = document.getString("phone_number");
-                                String address = document.getString("address");
-                                String gender = document.getString("gender");
-                                String bloodGroup = document.getString("blood_group");
+    private void fetchMedicalHistoryAndGenerateQRCode() {
+        medicalHistoryRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    // Extract relevant medical history data (consider customizing based on your data structure)
+                    String existingConditions = (String) snapshot.child("existingConditions").getValue();
+                    String hospitalizationDetails = (String) snapshot.child("hospitalizationDetails").getValue();
+                    String allergies = (String) snapshot.child("allergies").getValue();
+                    String dailyDiet = (String) snapshot.child("dailyDiet").getValue();
+                    String lastcheckup = (String) snapshot.child("lastCheckup").getValue();
+                    String physcicalActivity = (String) snapshot.child("physicalActivity").getValue();
+                    String recentTest = (String) snapshot.child("recentTests").getValue();
+                    String restrictions = (String) snapshot.child("recentTests").getValue();
+                    String smoking = (String) snapshot.child("smoking").getValue();
 
-                                // Set the retrieved data into TextViews
-                                nameTextView.setText(name);
-                                phoneNumberTextView.setText(phoneNumber);
-                                addressTextView.setText(address);
-                                genderTextView.setText(gender);
-                                bloodGroupTextView.setText(bloodGroup);
-                            } else {
-                                Log.d(TAG, "No such document");
+
+                    // Create a string representation of medical history data (consider data formatting)
+                    StringBuilder medicalHistoryString = new StringBuilder();
+                    medicalHistoryString.append("Existing Conditions: ").append(existingConditions).append("\n");
+                    medicalHistoryString.append("Hospitalization Details: ").append(hospitalizationDetails).append("\n");
+                    medicalHistoryString.append("allergies Details: ").append(allergies).append("\n");
+                    medicalHistoryString.append("daily Details: ").append(dailyDiet).append("\n");
+                    medicalHistoryString.append("physicalActivity Details: ").append(physcicalActivity).append("\n");
+                    medicalHistoryString.append("restrictions Details: ").append(restrictions).append("\n");
+                    medicalHistoryString.append("lastCheckup Details: ").append(lastcheckup).append("\n");
+                    medicalHistoryString.append("recentTest Details: ").append(recentTest).append("\n");
+                    medicalHistoryString.append("smoking Details: ").append(smoking).append("\n");
+
+
+                    // Generate QR code
+                    try {
+                        QRCodeWriter qrCodeWriter = new QRCodeWriter();
+                        Map<EncodeHintType, String> hints = new HashMap<>();
+                        hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
+                        BitMatrix bitMatrix = qrCodeWriter.encode(medicalHistoryString.toString(), BarcodeFormat.QR_CODE, 500, 500, hints);
+                        int width = bitMatrix.getWidth();
+                        int height = bitMatrix.getHeight();
+                        Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+                        for (int x = 0; x < width; x++) {
+                            for (int y = 0; y < height; y++) {
+                                bmp.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
                             }
-                        } else {
-                            Log.d(TAG, "get failed with ", task.getException());
                         }
+                        qrImageView.setImageBitmap(bmp);
+                    } catch (WriterException e) {
+                        e.printStackTrace();
+                        Toast.makeText(MedicalCardActivity.this, "Failed to generate QR code", Toast.LENGTH_SHORT).show();
                     }
-                });
-    }
-
-    private void generateQRCodeFromMedicalHistory() {
-        // Assuming you have retrieved medical history data from Firebase Firestore
-        String medicalHistoryData = "Sample Medical History Data"; // Replace with your actual data
-
-        // Generate QR code bitmap
-        Bitmap qrCodeBitmap = generateQRCodeBitmap(medicalHistoryData);
-        if (qrCodeBitmap != null) {
-            qrCodeImageView.setImageBitmap(qrCodeBitmap);
-        } else {
-            Toast.makeText(this, "Failed to generate QR code", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private Bitmap generateQRCodeBitmap(String data) {
-        try {
-            BitMatrix bitMatrix = new MultiFormatWriter().encode(data, BarcodeFormat.QR_CODE, 500, 500);
-            int width = bitMatrix.getWidth();
-            int height = bitMatrix.getHeight();
-            Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
-            for (int x = 0; x < width; x++) {
-                for (int y = 0; y < height; y++) {
-                    bitmap.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
+                } else {
+                    Log.d(TAG, "No medical history data found");
+                    Toast.makeText(MedicalCardActivity.this, "No medical history data found", Toast.LENGTH_SHORT).show();
                 }
             }
-            return bitmap;
-        } catch (WriterException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 
-    private void exportDataToPDF() {
-        // Combine data from UserProfile and MedicalHistory
-        String combinedData = combineDataFromUserProfileAndMedicalHistory();
-
-        // Create PDF file
-        File pdfFile = createPDFFile(combinedData);
-
-        // Share or save PDF file as needed
-        if (pdfFile != null) {
-            // Share or save the PDF file
-        } else {
-            Toast.makeText(this, "Failed to create PDF file", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private String combineDataFromUserProfileAndMedicalHistory() {
-        // Retrieve data from TextViews
-        String name = nameTextView.getText().toString();
-        String phoneNumber = phoneNumberTextView.getText().toString();
-        String address = addressTextView.getText().toString();
-        String gender = genderTextView.getText().toString();
-        String bloodGroup = bloodGroupTextView.getText().toString();
-
-        // Combine data as needed
-        String combinedData = String.format(Locale.getDefault(), "Name: %s\nPhone Number: %s\nAddress: %s\nGender: %s\nBlood Group: %s",
-                name, phoneNumber, address, gender, bloodGroup);
-
-        // Assuming you have retrieved medical history data from Firebase Firestore
-        String medicalHistoryData = "Sample Medical History Data"; // Replace with your actual data
-
-        // Append medical history data
-        combinedData += "\nMedical History:\n" + medicalHistoryData;
-
-        return combinedData;
-    }
-
-    private File createPDFFile(String data) {
-        // Code to create a PDF file from the combined data and return the File object
-        // This is a placeholder method, you'll need to implement the logic to create the PDF file
-        return null;
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w(TAG, "Failed to read medical history data", error.toException());
+                Toast.makeText(MedicalCardActivity.this, "Failed to read medical history data", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

@@ -2,22 +2,46 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo_3"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/logo_3"
         android:supportsRtl="true"
         android:theme="@style/Theme.SwasthyaMitra"
         tools:targetApi="31">
+        <activity
+            android:name=".EditNoteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DoctorsNoteRecyclerView"
+            android:exported="false" />
+        <activity
+            android:name=".EditFamilyHistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditUserProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditMedicalHistoryActivity"
+            android:exported="false" />
+
         <receiver
             android:name=".ReminderReceiver"
             android:enabled="true"
-            android:exported="true"></receiver>
+            android:exported="true" />
 
         <activity
             android:name=".WellnessActivity"
