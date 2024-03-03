@@ -34,6 +34,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -67,15 +69,31 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private Uri imageUri;
 
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase mDatabase;
+
+    private String userId;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
+        // Initialize Firebase Authentication
+        mAuth = FirebaseAuth.getInstance();
+
+        // Initialize Firebase Database
+        mDatabase = FirebaseDatabase.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            userId =(String) currentUser.getUid();
+            databaseRef = mDatabase.getReference().child("UserProfile").child(userId).child("user_profile");
+            storageRef = FirebaseStorage.getInstance().getReference().child("ProfilePictures").child(userId).child("User_profile_pic");
+
+        }
+
         // Initialize Firebase Database reference
-        databaseRef = FirebaseDatabase.getInstance().getReference().child("UserProfile");
-        // Initialize Firebase Storage reference
-        storageRef = FirebaseStorage.getInstance().getReference().child("profile_pictures");
 
         editName = findViewById(R.id.EditName);
         editAge = findViewById(R.id.EditAge);
@@ -201,6 +219,10 @@ public class UserProfileActivity extends AppCompatActivity {
                 Bitmap imageBitmap = (Bitmap) extras.get("data");
                 profilePicture.setImageBitmap(imageBitmap);
                 imageUri = getImageUri(imageBitmap);
+                Glide.with(this)
+                        .load(imageUri)
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(profilePicture);
             } else if (requestCode == REQUEST_IMAGE_PICK) {
                 if (data != null) {
                     imageUri = data.getData();
@@ -221,7 +243,7 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     private void saveUserProfile() {
-        final String name = editName.getText().toString().trim();
+        String name = editName.getText().toString().trim();
         String age = editAge.getText().toString().trim();
         String dob = editDOB.getText().toString().trim();
         String emergencyContact = editEmergencyContact.getText().toString().trim();
@@ -255,10 +277,12 @@ public class UserProfileActivity extends AppCompatActivity {
                                 userProfileData.put("address", address);
                                 userProfileData.put("bloodGroup", bloodGroup);
                                 userProfileData.put("gender", gender);
-                                userProfileData.put("profilePicture", uri.toString());
+                               userProfileData.put("profilePicture", uri.toString());
+
+
 
                                 // Save the data to Realtime Database
-                                databaseRef.child(name).setValue(userProfileData)
+                                databaseRef.child(userId).setValue(userProfileData)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {

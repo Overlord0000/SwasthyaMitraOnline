@@ -174,4 +174,43 @@ public class HealthProfileActivity extends AppCompatActivity {
             });
         }
     }
+
+    private void checkAndNavigateToAllergies() {
+        // Get the current user's ID
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+
+            // Check if the medical history data node exists for the current user in Firebase Realtime Database
+            DatabaseReference medicalHistoryRef = FirebaseDatabase.getInstance().getReference()
+                    .child("MedicalHistory").child(userId).child("medical_history");
+
+            medicalHistoryRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    // If the dataSnapshot exists, it means the medical history data exists for the current user
+                    if (dataSnapshot.exists()) {
+                        // Medical history data exists
+                        // Proceed to EditMedicalHistoryActivity
+                        Intent intent = new Intent(getApplicationContext(), EditMedicalHistoryActivity.class);
+                        startActivity(intent);
+                    } else {
+                        // Medical history data does not exist
+                        // Proceed to MedicalHistoryActivity
+                        Intent intent = new Intent(getApplicationContext(), MedicalHistoryActivity.class);
+                        startActivity(intent);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Handle potential errors
+                    Log.e("MedicalHistoryActivity", "Error reading medical history data", databaseError.toException());
+                    // Since we couldn't determine if medical history data exists or not, navigate to MedicalHistoryActivity by default
+                    Intent intent = new Intent(getApplicationContext(), MedicalHistoryActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
+    }
 }

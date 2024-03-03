@@ -1,18 +1,22 @@
 package com.example.swasthyamitra;
 
-public class Note {
-    private String id;
+import java.util.Date;
+
+public class NoteModel {
+    private String id; // New field for note ID
     private String title;
     private String description;
+    private Date creationDate;
 
-    public Note() {
-        // Default constructor required for calls to DataSnapshot.getValue(Note.class)
+    public NoteModel() {
+        // Default constructor required for Firebase
     }
 
-    public Note(String id, String title, String description) {
+    public NoteModel(String id, String title, String description, Date creationDate) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.creationDate = creationDate;
     }
 
     public String getId() {
@@ -37,5 +41,13 @@ public class Note {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 }

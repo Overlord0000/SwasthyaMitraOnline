@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:allowBackup="true"
@@ -23,10 +24,25 @@
         android:theme="@style/Theme.SwasthyaMitra"
         tools:targetApi="31">
         <activity
-            android:name=".EditNoteActivity"
+            android:name=".EditDoctorsNoteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ListDoctersNoteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DoctorsNoteActivity"
             android:exported="false" />
         <activity
             android:name=".DoctorsNoteRecyclerView"
+            android:exported="false" />
+        <activity
+            android:name=".MedicineReminderListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditAllergiesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditNoteActivity"
             android:exported="false" />
         <activity
             android:name=".EditFamilyHistoryActivity"
@@ -96,9 +112,6 @@
             android:exported="false" />
         <activity
             android:name=".EmergencyProcedureActivity"
-            android:exported="false" />
-        <activity
-            android:name=".DoctorsNoteActivity"
             android:exported="false" />
         <activity
             android:name=".DoctorsAndAppointmentsActivity"

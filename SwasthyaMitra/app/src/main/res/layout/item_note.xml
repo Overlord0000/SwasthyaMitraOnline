@@ -24,7 +24,7 @@
         tools:text="My long long long descrption"/>
 
     <TextView
-        android:id="@+id/timeoutput"
+        android:id="@+id/dateoutput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/descriptionoutput"

@@ -7,8 +7,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,19 +30,18 @@ public class EditNoteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_note);
+        setContentView(R.layout.activity_edit_doctors_note);
 
         titleInput = findViewById(R.id.titleinput_edit);
         descriptionInput = findViewById(R.id.descriptioninput_edit);
         saveBtn = findViewById(R.id.savebtn_edit);
 
         mAuth = FirebaseAuth.getInstance();
-        databaseRef = FirebaseDatabase.getInstance().getReference().child("DoctorsNotes");
+        databaseRef = FirebaseDatabase.getInstance().getReference().child("Users")
+                .child(mAuth.getCurrentUser().getUid()).child("DoctorNotes");
 
-        // Get noteId from intent extras
         noteId = getIntent().getStringExtra("noteId");
 
-        // Fetch note details and populate EditTexts
         populateNoteDetails();
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -52,32 +53,19 @@ public class EditNoteActivity extends AppCompatActivity {
     }
 
     private void populateNoteDetails() {
-        // Get the reference to the specific note using noteId
-        String userId = mAuth.getCurrentUser().getUid();
-        DatabaseReference userNoteRef = databaseRef.child(userId).child(noteId);
-
-        // Fetch note details from the database
-        userNoteRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseRef.child(noteId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    // Retrieve note data
                     String title = dataSnapshot.child("title").getValue(String.class);
                     String description = dataSnapshot.child("description").getValue(String.class);
-
-                    // Populate EditTexts with note data
                     titleInput.setText(title);
                     descriptionInput.setText(description);
-                } else {
-                    // Handle case where note does not exist
-                    Toast.makeText(EditNoteActivity.this, "Note not found", Toast.LENGTH_SHORT).show();
-                    finish();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle any errors that occur during the data retrieval
                 Toast.makeText(EditNoteActivity.this, "Failed to retrieve note details: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
                 finish();
             }
@@ -93,8 +81,7 @@ public class EditNoteActivity extends AppCompatActivity {
             return;
         }
 
-        String userId = mAuth.getCurrentUser().getUid();
-        DatabaseReference userNoteRef = databaseRef.child(userId).child(noteId);
+        DatabaseReference userNoteRef = databaseRef.child(noteId);
         userNoteRef.child("title").setValue(title);
         userNoteRef.child("description").setValue(description);
 

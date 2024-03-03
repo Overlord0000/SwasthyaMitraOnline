@@ -3,22 +3,39 @@ package com.example.swasthyamitra;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.widget.Toast;
 
 public class ReminderReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        // This method is called when the BroadcastReceiver is receiving an Intent broadcast.
+        // Play sound when the alarm goes off
+        playAlarmSound(context);
+        if (intent.getAction() != null && intent.getAction().equals("MY_ALARM_ACTION ")) {
+            // Start the PopupService to display the popup menu
+            Intent serviceIntent = new Intent(context, PopupService.class);
+            context.startService(serviceIntent);
+        }
 
-        // Retrieve the appointment title from the intent
-        String title = intent.getStringExtra("title");
+        // You can also perform other actions here, such as showing a notification
+        Toast.makeText(context, "Alarm Triggered!", Toast.LENGTH_SHORT).show();
+    }
 
-        // Display a toast message with the appointment title
-        Toast.makeText(context, "Reminder: " + title, Toast.LENGTH_SHORT).show();
+    private void playAlarmSound(Context context) {
+        try {
+            // You can change the alarm sound URI here
+            Uri alarmSound = Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.medication_reminder);
 
-        // Log a message to indicate that the reminder was triggered
-        Log.d("ReminderReceiver", "Reminder for appointment: " + title);
+            // Create a MediaPlayer instance to play the alarm sound
+            MediaPlayer mediaPlayer = new MediaPlayer();
+            mediaPlayer.setDataSource(context, alarmSound);
+            mediaPlayer.setLooping(true); // Loop the sound continuously until stopped
+            mediaPlayer.prepare(); // Prepare the MediaPlayer
+            mediaPlayer.start(); // Start playing the sound
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

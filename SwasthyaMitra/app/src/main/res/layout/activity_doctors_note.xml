@@ -7,7 +7,6 @@
     android:orientation="vertical"
     android:background="@drawable/regback"
     android:padding="20dp"
-    android:gravity="center"
     tools:context=".DoctorsNoteActivity">
 
     <TextView
@@ -27,30 +26,26 @@
         android:orientation="vertical"
         android:padding="10dp"
         android:layout_margin="10dp"
-        android:background="@drawable/glass_morph">
-
+        android:background="@drawable/rounded_corner">
         <EditText
-            android:id="@+id/titleinput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="#300040FF"
+            android:id="@+id/titleinput"
             android:hint="Title"
             android:inputType="text"
-            android:textColor="@color/black"
-            android:padding="10dp" />
-
+            android:background="#3000B0FF"
+            android:padding="10dp"
+            android:layout_margin="10dp"/>
         <EditText
-            android:id="@+id/descriptioninput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/descriptioninput"
+            android:hint="Decription"
+            android:background="#3000B0FF"
+            android:padding="10dp"
             android:layout_margin="10dp"
-            android:textColor="@color/black"
-            android:background="#300040FF"
-            android:gravity="top"
-            android:hint="Description"
             android:lines="10"
-            android:padding="10dp" />
+            android:gravity="top"/>
 
 
     </LinearLayout>

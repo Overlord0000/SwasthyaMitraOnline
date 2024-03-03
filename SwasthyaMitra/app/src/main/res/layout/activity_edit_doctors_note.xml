@@ -7,14 +7,14 @@
     android:orientation="vertical"
     android:background="@drawable/regback"
     android:padding="20dp"
-    tools:context=".EditNoteActivity">
+    tools:context=".EditDoctorsNoteActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/titletextview_edit"
         android:text="Edit Doctors Note"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="25dp"
         android:textStyle="bold"
         android:gravity="center"
@@ -26,7 +26,7 @@
         android:orientation="vertical"
         android:padding="10dp"
         android:layout_margin="10dp"
-        android:background="@drawable/glass_morph">
+        android:background="@drawable/rounded_corner">
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

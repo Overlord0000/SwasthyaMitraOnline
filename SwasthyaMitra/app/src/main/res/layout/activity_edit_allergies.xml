@@ -38,7 +38,6 @@
 
 
             <TextView
-                android:id="@+id/textViewAllergyType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Type of Allergy:"
@@ -48,25 +47,25 @@
                 android:layout_marginTop="16dp"/>
 
             <CheckBox
-                android:id="@+id/checkBoxFood"
+                android:id="@+id/EdcheckBoxFood"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Food"/>
 
             <CheckBox
-                android:id="@+id/checkBoxDrug"
+                android:id="@+id/EdcheckBoxDrug"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Drug"/>
 
             <CheckBox
-                android:id="@+id/checkBoxEnvironmental"
+                android:id="@+id/EdcheckBoxEnvironmental"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Environmental"/>
 
             <CheckBox
-                android:id="@+id/checkBoxInsect"
+                android:id="@+id/EdcheckBoxInsect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Insect"/>
@@ -82,7 +81,7 @@
                 android:layout_marginTop="16dp"/>
 
             <Spinner
-                android:id="@+id/spinnerSeverity"
+                android:id="@+id/EdspinnerSeverity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -99,7 +98,7 @@
                 android:layout_marginTop="16dp"/>
 
             <EditText
-                android:id="@+id/editTextAllergen"
+                android:id="@+id/EdeditTextAllergen"
                 android:layout_width="match_parent"
                 android:layout_height="68dp"
                 android:textColor="@color/black"
@@ -118,7 +117,7 @@
                 android:layout_marginTop="16dp"/>
 
             <EditText
-                android:id="@+id/editTextSymptoms"
+                android:id="@+id/EdeditTextSymptoms"
                 android:layout_width="match_parent"
                 android:layout_height="68dp"
                 android:textColor="@color/black"
@@ -136,7 +135,7 @@
                 android:layout_marginTop="16dp"/>
 
             <EditText
-                android:id="@+id/editTextTriggers"
+                android:id="@+id/EdeditTextTriggers"
                 android:layout_width="match_parent"
                 android:layout_height="68dp"
                 android:textColor="@color/black"
@@ -155,7 +154,7 @@
                 android:layout_marginTop="16dp"/>
 
             <EditText
-                android:id="@+id/editTextPreviousReactions"
+                android:id="@+id/EdeditTextPreviousReactions"
                 android:layout_width="match_parent"
                 android:layout_height="68dp"
                 android:textColor="@color/black"
@@ -174,7 +173,7 @@
                 android:layout_marginTop="16dp"/>
 
             <EditText
-                android:id="@+id/editTextTreatmentPlan"
+                android:id="@+id/EdeditTextTreatmentPlan"
                 android:layout_width="match_parent"
                 android:layout_height="68dp"
                 android:paddingStart="10dp"
@@ -193,7 +192,7 @@
                 android:layout_marginTop="16dp"/>
 
             <EditText
-                android:id="@+id/editTextMedications"
+                android:id="@+id/EdeditTextMedications"
                 android:layout_width="match_parent"
                 android:layout_height="68dp"
                 android:textColor="@color/black"
@@ -203,11 +202,11 @@
 
 
             <Button
-                android:id="@+id/buttonSaveAllergy"
+                android:id="@+id/buttonUpdateAllergy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Save"/>
+                android:text="Save &amp; update"/>
         </LinearLayout>
 
     </ScrollView>

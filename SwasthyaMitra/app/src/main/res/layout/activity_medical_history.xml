@@ -45,10 +45,10 @@
             <EditText
                 android:id="@+id/ExistingMedicalConditions"
                 android:layout_width="match_parent"
-                android:layout_height="38dp"
+                android:layout_height="68dp"
                 android:paddingStart="10dp"
                 android:hint="@string/enter_details_if_any"
-                android:background="@drawable/input_bg"
+                android:background="@drawable/rectangle"
                 android:inputType="textMultiLine" />
 
             <!-- Question 2: Hospitalization or Surgery -->
@@ -62,9 +62,9 @@
             <EditText
                 android:id="@+id/HospitalizationDetails"
                 android:layout_width="match_parent"
-                android:layout_height="38dp"
+                android:layout_height="68dp"
                 android:paddingStart="10dp"
-                android:background="@drawable/input_bg"
+                android:background="@drawable/rectangle"
                 android:hint="@string/enter_details_if_any"
                 android:inputType="textMultiLine" />
 
@@ -79,10 +79,10 @@
             <EditText
                 android:id="@+id/CurrentMedications"
                 android:layout_width="match_parent"
-                android:layout_height="38dp"
+                android:layout_height="68dp"
                 android:paddingStart="10dp"
                 android:hint="@string/enter_details_if_any"
-                android:background="@drawable/input_bg"
+                android:background="@drawable/rectangle"
                 android:inputType="textMultiLine" />
 
             <!-- Question 4: Known Allergies -->
@@ -96,10 +96,10 @@
             <EditText
                 android:id="@+id/KnownAllergies"
                 android:layout_width="match_parent"
-                android:layout_height="38dp"
+                android:layout_height="68dp"
                 android:paddingStart="10dp"
                 android:hint="@string/enter_details_if_any"
-                android:background="@drawable/input_bg"
+                android:background="@drawable/rectangle"
                 android:inputType="textMultiLine" />
             <TextView
                 android:layout_width="match_parent"
@@ -176,10 +176,10 @@
             <EditText
                 android:id="@+id/TypicalDailyDiet"
                 android:layout_width="match_parent"
-                android:layout_height="38dp"
+                android:layout_height="68dp"
                 android:paddingStart="10dp"
                 android:hint="@string/enter_details"
-                android:background="@drawable/input_bg"
+                android:background="@drawable/rectangle"
                 android:inputType="textMultiLine" />
 
             <!-- Question 2: Dietary Restrictions or Preferences -->
@@ -193,9 +193,9 @@
             <EditText
                 android:id="@+id/DietaryRestrictions"
                 android:layout_width="match_parent"
-                android:layout_height="38dp"
+                android:layout_height="68dp"
                 android:paddingStart="10dp"
-                android:background="@drawable/input_bg"
+                android:background="@drawable/rectangle"
                 android:hint="@string/enter_restrictions_or_preferences"
                 android:inputType="textMultiLine" />
 
@@ -218,10 +218,10 @@
             <EditText
                 android:id="@+id/LastMedicalCheckup"
                 android:layout_width="match_parent"
-                android:layout_height="38dp"
+                android:layout_height="68dp"
                 android:paddingStart="10dp"
                 android:hint="@string/enter_details"
-                android:background="@drawable/input_bg"
+                android:background="@drawable/rectangle"
                 android:inputType="text" />
 
             <!-- Question 4: Recent Medical Tests or Screenings -->
@@ -235,10 +235,10 @@
             <EditText
                 android:id="@+id/RecentMedicalTests"
                 android:layout_width="match_parent"
-                android:layout_height="38dp"
+                android:layout_height="68dp"
                 android:paddingStart="10dp"
                 android:hint="@string/enter_details"
-                android:background="@drawable/input_bg"
+                android:background="@drawable/rectangle"
                 android:inputType="textMultiLine" />
 
             <Button

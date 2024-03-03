@@ -32,7 +32,7 @@ public class DoctorsAndAppointmentsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Open DoctorsNoteActivity when Doctors Note button is clicked
-                startActivity(new Intent(DoctorsAndAppointmentsActivity.this, DoctorsNoteRecyclerView.class));
+                startActivity(new Intent(DoctorsAndAppointmentsActivity.this, ListDoctersNoteActivity.class));
             }
         });
     }
