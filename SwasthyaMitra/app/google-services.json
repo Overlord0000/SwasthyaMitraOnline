@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "814131159441",
-    "project_id": "swasthyamitra-574e7",
-    "storage_bucket": "swasthyamitra-574e7.appspot.com"
+    "project_number": "639888638982",
+    "project_id": "swasthyamitra-1b400",
+    "storage_bucket": "swasthyamitra-1b400.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:814131159441:android:3d2d3ba9f8a423e19afa30",
+        "mobilesdk_app_id": "1:639888638982:android:d3bede36ddc1b45ab6ef87",
         "android_client_info": {
           "package_name": "com.example.swasthyamitra"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAHBTc2WouMrQflrKLjxlX36rOBTVG9Lkc"
+          "current_key": "AIzaSyAWboPD0rmhF1R7Bex-MOHw7MWD8Dd2u7c"
         }
       ],
       "services": {

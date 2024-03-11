@@ -1,27 +1,34 @@
 package com.example.swasthyamitra;
 
-import java.util.Date;
 
 public class Appointment {
+    private String id;
     private String title;
-    private Date date;
+    private String date;
     private String time;
     private String location;
-    private int reminderMinutes;
+    private long reminderTime;
 
-    public Appointment(String appointmentTitle, String date, String time, String location, int minutesBefore) {
-        // Default constructor required for Firebase
-    }
+    public Appointment() {}
 
-    public Appointment(String title, Date date, String time, String location, int reminderMinutes) {
+    public Appointment(String id, String title, String date, String time, String location, long reminderTime) {
+        this.id = id;
         this.title = title;
         this.date = date;
         this.time = time;
         this.location = location;
-        this.reminderMinutes = reminderMinutes;
+        this.reminderTime = reminderTime;
     }
 
     // Getters and setters
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -30,11 +37,11 @@ public class Appointment {
         this.title = title;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -54,11 +61,11 @@ public class Appointment {
         this.location = location;
     }
 
-    public int getReminderMinutes() {
-        return reminderMinutes;
+    public long getReminderTime() {
+        return reminderTime;
     }
 
-    public void setReminderMinutes(int reminderMinutes) {
-        this.reminderMinutes = reminderMinutes;
+    public void setReminderTime(long reminderTime) {
+        this.reminderTime = reminderTime;
     }
 }

@@ -1,9 +1,7 @@
 package com.example.swasthyamitra;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -12,10 +10,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -25,97 +21,66 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
 public class UserProfileActivity extends AppCompatActivity {
 
-    private static final int REQUEST_CAMERA_PERMISSION = 101;
-    private static final int REQUEST_IMAGE_CAPTURE = 102;
-    private static final int REQUEST_IMAGE_PICK = 103;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int REQUEST_IMAGE_PICK = 2;
+    private static final int REQUEST_CAMERA_PERMISSION = 3;
 
-    private EditText editName, editAge, editDOB, editEmergencyContact, editAddress;
+    private ImageView profilePicture;
+    private EditText editName, editDOB, editAge, editEmergencyContact, editAddress;
     private Spinner spinnerBloodGroup;
     private RadioGroup radioGroupGender;
-    private Button btnSave;
-    private ImageView profilePicture;
-
-    // Firebase Database
-    private DatabaseReference databaseRef;
-
-    // Firebase Storage
-    private StorageReference storageRef;
+    private Button buttonSave;
 
     private Uri imageUri;
 
     private FirebaseAuth mAuth;
-    private FirebaseDatabase mDatabase;
-
-    private String userId;
-
+    private DatabaseReference mDatabase;
+    private StorageReference mStorageRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
-        // Initialize Firebase Authentication
-        mAuth = FirebaseAuth.getInstance();
-
-        // Initialize Firebase Database
-        mDatabase = FirebaseDatabase.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            userId =(String) currentUser.getUid();
-            databaseRef = mDatabase.getReference().child("UserProfile").child(userId).child("user_profile");
-            storageRef = FirebaseStorage.getInstance().getReference().child("ProfilePictures").child(userId).child("User_profile_pic");
-
-        }
-
-        // Initialize Firebase Database reference
-
+        profilePicture = findViewById(R.id.ProfilePicture);
         editName = findViewById(R.id.EditName);
-        editAge = findViewById(R.id.EditAge);
         editDOB = findViewById(R.id.EditDOB);
+        editAge = findViewById(R.id.EditAge);
         editEmergencyContact = findViewById(R.id.EditEmergencyContact);
         editAddress = findViewById(R.id.EditAddress);
-        spinnerBloodGroup = findViewById(R.id.spinnerBloodGroup);
         radioGroupGender = findViewById(R.id.radioGroupGender);
-        btnSave = findViewById(R.id.buttonSave);
-        profilePicture = findViewById(R.id.ProfilePicture);
+        spinnerBloodGroup = findViewById(R.id.spinnerBloodGroup);
+        buttonSave = findViewById(R.id.buttonSave);
+
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mStorageRef = FirebaseStorage.getInstance().getReference();
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.blood_groups, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerBloodGroup.setAdapter(adapter);
-
-        editDOB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePicker();
-            }
-        });
 
         profilePicture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,7 +89,14 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
+        editDOB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePicker();
+            }
+        });
+
+        buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveUserProfile();
@@ -132,47 +104,22 @@ public class UserProfileActivity extends AppCompatActivity {
         });
     }
 
-    private void showDatePicker() {
-        final Calendar currentDate = Calendar.getInstance();
-        int mYear = currentDate.get(Calendar.YEAR);
-        int mMonth = currentDate.get(Calendar.MONTH);
-        int mDay = currentDate.get(Calendar.DAY_OF_MONTH);
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year,
-                                          int monthOfYear, int dayOfMonth) {
-                        currentDate.set(Calendar.YEAR, year);
-                        currentDate.set(Calendar.MONTH, monthOfYear);
-                        currentDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-                        editDOB.setText(sdf.format(currentDate.getTime()));
-                    }
-                }, mYear, mMonth, mDay);
-        datePickerDialog.show();
-    }
-
     private void selectImage() {
         final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
         builder.setTitle("Add Photo");
-        builder.setItems(options, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int item) {
-                if (options[item].equals("Take Photo")) {
-                    if (checkCameraPermission()) {
-                        openCamera();
-                    } else {
-                        requestCameraPermission();
-                    }
-                } else if (options[item].equals("Choose from Gallery")) {
-                    openGallery();
-                } else if (options[item].equals("Cancel")) {
-                    dialog.dismiss();
+        builder.setItems(options, (dialog, item) -> {
+            if (options[item].equals("Take Photo")) {
+                if (checkCameraPermission()) {
+                    openCamera();
+                } else {
+                    requestCameraPermission();
                 }
+            } else if (options[item].equals("Choose from Gallery")) {
+                openGallery();
+            } else if (options[item].equals("Cancel")) {
+                dialog.dismiss();
             }
         });
         builder.show();
@@ -213,23 +160,18 @@ public class UserProfileActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
+        if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_IMAGE_CAPTURE) {
-                Bundle extras = data.getExtras();
-                Bitmap imageBitmap = (Bitmap) extras.get("data");
-                profilePicture.setImageBitmap(imageBitmap);
-                imageUri = getImageUri(imageBitmap);
-                Glide.with(this)
-                        .load(imageUri)
-                        .apply(RequestOptions.circleCropTransform())
-                        .into(profilePicture);
+                if (data != null && data.getExtras() != null) {
+                    Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
+                    profilePicture.setImageBitmap(imageBitmap);
+                    imageUri = getImageUri(imageBitmap);
+                    loadImage(imageUri);
+                }
             } else if (requestCode == REQUEST_IMAGE_PICK) {
-                if (data != null) {
+                if (data != null && data.getData() != null) {
                     imageUri = data.getData();
-                    Glide.with(this)
-                            .load(imageUri)
-                            .apply(RequestOptions.circleCropTransform())
-                            .into(profilePicture);
+                    loadImage(imageUri);
                 }
             }
         }
@@ -242,78 +184,115 @@ public class UserProfileActivity extends AppCompatActivity {
         return Uri.parse(path);
     }
 
+    private void loadImage(Uri uri) {
+        Glide.with(this)
+                .load(uri)
+                .apply(RequestOptions.circleCropTransform())
+                .into(profilePicture);
+    }
+
+    private void showDatePicker() {
+        final Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, year1, monthOfYear, dayOfMonth) -> {
+            calendar.set(Calendar.YEAR, year1);
+            calendar.set(Calendar.MONTH, monthOfYear);
+            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            editDOB.setText(sdf.format(calendar.getTime()));
+            calculateAge(calendar);
+        }, year, month, day);
+        datePickerDialog.show();
+    }
+
+    private void calculateAge(Calendar dobCalendar) {
+        Calendar currentDate = Calendar.getInstance();
+        int age = currentDate.get(Calendar.YEAR) - dobCalendar.get(Calendar.YEAR);
+        if (currentDate.get(Calendar.DAY_OF_YEAR) < dobCalendar.get(Calendar.DAY_OF_YEAR)) {
+            age--;
+        }
+        editAge.setText(String.valueOf(age));
+    }
+
     private void saveUserProfile() {
         String name = editName.getText().toString().trim();
-        String age = editAge.getText().toString().trim();
         String dob = editDOB.getText().toString().trim();
+        String age = editAge.getText().toString().trim();
         String emergencyContact = editEmergencyContact.getText().toString().trim();
         String address = editAddress.getText().toString().trim();
-        String bloodGroup = spinnerBloodGroup.getSelectedItem().toString().trim();
-        String gender = getSelectedGender();
+        String bloodGroup = spinnerBloodGroup.getSelectedItem().toString();
+        String gender = ((RadioButton) findViewById(radioGroupGender.getCheckedRadioButtonId())).getText().toString();
 
-        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(age) || TextUtils.isEmpty(dob) ||
-                TextUtils.isEmpty(emergencyContact) || TextUtils.isEmpty(address) || TextUtils.isEmpty(bloodGroup) ||
-                TextUtils.isEmpty(gender) || imageUri == null) {
-            Toast.makeText(this, "Please fill all fields and select a profile picture", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(name)) {
+            editName.setError("Name is required");
+            editName.requestFocus();
             return;
         }
 
-        // Upload profile picture to Firebase Storage
-        final StorageReference profilePicRef = storageRef.child(name + "_profile_picture.jpg");
-        profilePicRef.putFile(imageUri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        // Get the download URL for the profile picture
-                        profilePicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                // Save user profile data to Realtime Database
-                                Map<String, Object> userProfileData = new HashMap<>();
-                                userProfileData.put("name", name);
-                                userProfileData.put("age", age);
-                                userProfileData.put("dob", dob);
-                                userProfileData.put("emergencyContact", emergencyContact);
-                                userProfileData.put("address", address);
-                                userProfileData.put("bloodGroup", bloodGroup);
-                                userProfileData.put("gender", gender);
-                               userProfileData.put("profilePicture", uri.toString());
+        if (TextUtils.isEmpty(dob)) {
+            editDOB.setError("Date of Birth is required");
+            editDOB.requestFocus();
+            return;
+        }
 
+        if (TextUtils.isEmpty(age)) {
+            editAge.setError("Age is required");
+            editAge.requestFocus();
+            return;
+        }
 
+        if (TextUtils.isEmpty(emergencyContact)) {
+            editEmergencyContact.setError("Emergency Contact is required");
+            editEmergencyContact.requestFocus();
+            return;
+        }
 
-                                // Save the data to Realtime Database
-                                databaseRef.child(userId).setValue(userProfileData)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                Toast.makeText(UserProfileActivity.this, "Profile saved successfully", Toast.LENGTH_SHORT).show();
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Toast.makeText(UserProfileActivity.this, "Failed to save profile: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
-                            }
+        if (emergencyContact.length() != 10 || !TextUtils.isDigitsOnly(emergencyContact)) {
+            editEmergencyContact.setError("Emergency Contact must be a 10-digit number");
+            editEmergencyContact.requestFocus();
+            return;
+        }
+
+        if (TextUtils.isEmpty(address)) {
+            editAddress.setError("Address is required");
+            editAddress.requestFocus();
+            return;
+        }
+
+        if (imageUri == null) {
+            Toast.makeText(this, "Please select a profile picture", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null) {
+            String userId = user.getUid();
+
+            StorageReference profilePicRef = mStorageRef.child("profile_pictures/" + userId + ".jpg");
+            profilePicRef.putFile(imageUri)
+                    .addOnSuccessListener(taskSnapshot -> {
+                        profilePicRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                            String profilePicUrl = uri.toString();
+                            UserProfile userProfile = new UserProfile(name, dob, age, emergencyContact, address, bloodGroup, gender, profilePicUrl);
+
+                            mDatabase.child("users").child(userId).setValue(userProfile)
+                                    .addOnSuccessListener(aVoid -> {
+                                        Toast.makeText(UserProfileActivity.this, "User profile saved successfully", Toast.LENGTH_SHORT).show();
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        Toast.makeText(UserProfileActivity.this, "Failed to save user profile", Toast.LENGTH_SHORT).show();
+                                    });
                         });
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(UserProfileActivity.this, "Failed to upload profile picture: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
-
-    private String getSelectedGender() {
-        int selectedRadioButtonId = radioGroupGender.getCheckedRadioButtonId();
-        if (selectedRadioButtonId != -1) {
-            RadioButton radioButton = findViewById(selectedRadioButtonId);
-            return radioButton.getText().toString();
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(UserProfileActivity.this, "Failed to upload profile picture", Toast.LENGTH_SHORT).show();
+                    });
         } else {
-            return "";
+            Toast.makeText(UserProfileActivity.this, "User not logged in", Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -32,37 +32,85 @@ public class WellnessActivity extends AppCompatActivity {
         Womens_Health = (CardView) findViewById(R.id.Womens_Health);
 
         // Set click listeners for card views
-        setOnClickListener(Nutrition, "https://www.niddk.nih.gov/health-information/diet-nutrition");
-        setOnClickListener(Mental_Health, "https://www.who.int/news-room/fact-sheets/detail/mental-health-strengthening-our-response");
-        setOnClickListener(Fitness, "https://www.health.harvard.edu/topics/exercise-and-fitness");
-        setOnClickListener(Genral_Health, "https://www.webmd.com/");
-        setOnClickListener(Sleep, "https://www.cdc.gov/sleep/index.html");
-        setOnClickListener(Weight, "https://www.niddk.nih.gov/health-information/weight-management");
-        setOnClickListener(Medical_News, "https://www.medicalnewstoday.com/");
-        setOnClickListener(Parenting, "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1113192/");
-        setOnClickListener(Womens_Health, "https://www.who.int/health-topics/women-s-health");
-    }
-
-    private void setOnClickListener(CardView cardView, String url) {
-        cardView.setOnClickListener(new View.OnClickListener() {
+//        setOnClickListener(Nutrition, "https://www.niddk.nih.gov/health-information/diet-nutrition");
+//        setOnClickListener(Mental_Health, "https://www.who.int/news-room/fact-sheets/detail/mental-health-strengthening-our-response");
+//        setOnClickListener(Fitness, "https://www.health.harvard.edu/topics/exercise-and-fitness");
+//        setOnClickListener(Genral_Health, "https://www.webmd.com/");
+//        setOnClickListener(Sleep, "https://www.cdc.gov/sleep/index.html");
+//        setOnClickListener(Weight, "https://www.niddk.nih.gov/health-information/weight-management");
+//        setOnClickListener(Medical_News, "https://www.medicalnewstoday.com/");
+//        setOnClickListener(Parenting, "");https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1113192/
+//        setOnClickListener(Womens_Health, "https://www.who.int/health-topics/women-s-health");
+        Nutrition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                redirectToWebsite("https://www.niddk.nih.gov/health-information/diet-nutrition");
+            }
+        });
 
-                // Check for default browser availability
-                if (intent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(intent);
-                } else {
-                    // Check for specific browsers if default is unavailable
-                    if (intent.resolveActivity(getPackageManager()
-                    ) != null) {
-                        intent.setPackage("com.android.chrome"); // Example for Chrome
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(getApplicationContext(), "No web browser found", Toast.LENGTH_SHORT).show();
-                    }
-                }
+        Mental_Health.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                redirectToWebsite("https://www.who.int/news-room/fact-sheets/detail/mental-health-strengthening-our-response");
+            }
+        });
+
+        Fitness.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                redirectToWebsite("https://www.health.harvard.edu/topics/exercise-and-fitness");
+            }
+        });
+
+        Genral_Health.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                redirectToWebsite("https://www.webmd.com/");
+            }
+        });
+
+        Sleep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                redirectToWebsite("https://www.cdc.gov/sleep/index.html");
+            }
+        });
+
+        Weight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                redirectToWebsite("https://www.niddk.nih.gov/health-information/weight-management");
+            }
+        });
+
+        Medical_News.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                redirectToWebsite("https://www.medicalnewstoday.com/");
+            }
+        });
+
+        Parenting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                redirectToWebsite("https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1113192/");
+            }
+        });
+
+        Womens_Health.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                redirectToWebsite("https://www.who.int/health-topics/women-s-health");
             }
         });
     }
-}
+
+    private void redirectToWebsite(String url) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
+    }
+    }
+
+
+

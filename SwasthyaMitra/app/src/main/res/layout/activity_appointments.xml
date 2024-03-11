@@ -27,7 +27,7 @@
 
 
         <EditText
-            android:id="@+id/textViewTitleAppointment"
+            android:id="@+id/TitleAppointment"
             android:layout_width="match_parent"
             android:layout_height="39dp"
             android:hint="Appointment Title"
@@ -37,7 +37,7 @@
             android:background="@drawable/input_bg"/>
 
         <EditText
-            android:id="@+id/textViewDate"
+            android:id="@+id/ViewDate"
             android:layout_width="match_parent"
             android:layout_height="39dp"
             android:hint="Date"
@@ -48,7 +48,7 @@
             android:background="@drawable/input_bg"/>
 
         <EditText
-            android:id="@+id/textViewTime"
+            android:id="@+id/Time"
             android:layout_width="match_parent"
             android:layout_height="39dp"
             android:hint="Time"
@@ -59,7 +59,7 @@
             android:background="@drawable/input_bg"/>
 
         <EditText
-            android:id="@+id/textViewLocation"
+            android:id="@+id/Location"
             android:layout_width="match_parent"
             android:layout_height="39dp"
             android:hint="Location"
@@ -81,13 +81,13 @@
             />
 
         <EditText
-            android:id="@+id/editTextMinutesBefore"
+            android:id="@+id/HoursBefore"
             android:layout_width="wrap_content"
             android:layout_height="39dp"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
             android:inputType="number"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/rectangle"
             android:hint="Hours before" />
 

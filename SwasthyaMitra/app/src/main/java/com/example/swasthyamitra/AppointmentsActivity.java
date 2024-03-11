@@ -1,16 +1,9 @@
 package com.example.swasthyamitra;
 
-import android.app.AlarmManager;
 import android.app.DatePickerDialog;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.TimePickerDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -18,171 +11,138 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 
 public class AppointmentsActivity extends AppCompatActivity {
 
-    private EditText appointmentTitleEditText;
-    private EditText dateEditText;
-    private EditText timeEditText;
-    private EditText locationEditText;
-    private EditText minutesBeforeEditText;
-    private Button setReminderButton;
+    private EditText titleAppointment, viewDate, time, location, hoursBefore;
+    private Button buttonSetReminder;
 
-    private DatabaseReference appointmentsRef;
+    private FirebaseFirestore db;
+    private FirebaseAuth mAuth;
 
-    private static final String CHANNEL_ID = "Appointment_Reminder_Channel";
-    private Calendar calendar;
+    private DatePickerDialog datePickerDialog;
+    private TimePickerDialog timePickerDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appointments);
 
-        appointmentTitleEditText = findViewById(R.id.textViewTitleAppointment);
-        dateEditText = findViewById(R.id.textViewDate);
-        timeEditText = findViewById(R.id.textViewTime);
-        locationEditText = findViewById(R.id.textViewLocation);
-        minutesBeforeEditText = findViewById(R.id.editTextMinutesBefore);
-        setReminderButton = findViewById(R.id.buttonSetReminder);
+        titleAppointment = findViewById(R.id.TitleAppointment);
+        viewDate = findViewById(R.id.ViewDate);
+        time = findViewById(R.id.Time);
+        location = findViewById(R.id.Location);
+        hoursBefore = findViewById(R.id.HoursBefore);
+        buttonSetReminder = findViewById(R.id.buttonSetReminder);
 
-        appointmentsRef = FirebaseDatabase.getInstance().getReference().child("Appointments");
+        db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
-        dateEditText.setOnClickListener(new View.OnClickListener() {
+        initDatePicker();
+        initTimePicker();
+
+        viewDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDatePicker();
+                datePickerDialog.show();
             }
         });
 
-        timeEditText.setOnClickListener(new View.OnClickListener() {
+        time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showTimePicker();
+                timePickerDialog.show();
             }
         });
 
-        setReminderButton.setOnClickListener(new View.OnClickListener() {
+        buttonSetReminder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveAppointmentAndSetReminder();
+                createAppointment();
             }
         });
     }
 
-    private void showDatePicker() {
-        final Calendar currentDate = Calendar.getInstance();
-        int mYear = currentDate.get(Calendar.YEAR);
-        int mMonth = currentDate.get(Calendar.MONTH);
-        int mDay = currentDate.get(Calendar.DAY_OF_MONTH);
+    private void initDatePicker() {
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                String selectedDate = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
+                viewDate.setText(selectedDate);
+            }
+        };
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year,
-                                          int monthOfYear, int dayOfMonth) {
-                        currentDate.set(Calendar.YEAR, year);
-                        currentDate.set(Calendar.MONTH, monthOfYear);
-                        currentDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-                        dateEditText.setText(sdf.format(currentDate.getTime()));
-                    }
-                }, mYear, mMonth, mDay);
-        datePickerDialog.show();
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        datePickerDialog = new DatePickerDialog(this, dateSetListener, year, month, day);
     }
 
-    private void showTimePicker() {
-        final Calendar currentTime = Calendar.getInstance();
-        int mHour = currentTime.get(Calendar.HOUR_OF_DAY);
-        int mMinute = currentTime.get(Calendar.MINUTE);
+    private void initTimePicker() {
+        TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                String selectedTime = String.format("%02d:%02d", hourOfDay, minute);
+                time.setText(selectedTime);
+            }
+        };
 
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
-                new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay,
-                                          int minute) {
-                        currentTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                        currentTime.set(Calendar.MINUTE, minute);
-
-                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
-                        timeEditText.setText(sdf.format(currentTime.getTime()));
-                    }
-                }, mHour, mMinute, false);
-        timePickerDialog.show();
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        timePickerDialog = new TimePickerDialog(this, timeSetListener, hour, minute, true);
     }
 
-    private void saveAppointmentAndSetReminder() {
-        String appointmentTitle = appointmentTitleEditText.getText().toString();
-        String date = dateEditText.getText().toString();
-        String time = timeEditText.getText().toString();
-        String location = locationEditText.getText().toString();
-        String minutesBeforeString = minutesBeforeEditText.getText().toString();
+    private void createAppointment() {
+        String title = titleAppointment.getText().toString().trim();
+        String date = viewDate.getText().toString().trim();
+        String timeStr = time.getText().toString().trim();
+        String locationStr = location.getText().toString().trim();
+        String hoursBeforeStr = hoursBefore.getText().toString().trim();
 
-        if (appointmentTitle.isEmpty() || date.isEmpty() || time.isEmpty() || location.isEmpty() || minutesBeforeString.isEmpty()) {
-            // Validate input fields
-            // You can display a toast message or handle the empty fields as per your requirement
+        if (TextUtils.isEmpty(title) || TextUtils.isEmpty(date) || TextUtils.isEmpty(timeStr) || TextUtils.isEmpty(hoursBeforeStr)) {
+            Toast.makeText(this, "Please fill in all fields.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        int minutesBefore = Integer.parseInt(minutesBeforeString);
+        String userId = mAuth.getCurrentUser().getUid();
 
-        // Save appointment data to Firebase
-        Appointment appointment = new Appointment(appointmentTitle, date, time, location, minutesBefore);
-        appointmentsRef.push().setValue(appointment);
+        Appointment appointment = new Appointment();
+        appointment.setTitle(title);
+        appointment.setDate(date);
+        appointment.setTime(timeStr);
+        appointment.setLocation(locationStr);
 
-        // Set appointment reminder
-        setReminder(appointmentTitle, date, time, location, minutesBefore);
-    }
-
-    private void setReminder(String appointmentTitle, String date, String time, String location, int minutesBefore) {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.add(Calendar.MINUTE, -minutesBefore);
+        String[] timeParts = timeStr.split(":");
+        calendar.set(Integer.parseInt(date.substring(6)), Integer.parseInt(date.substring(3, 5)) - 1, Integer.parseInt(date.substring(0, 2)), Integer.parseInt(timeParts[0]), Integer.parseInt(timeParts[1]));
+        long reminderTime = calendar.getTimeInMillis() - Integer.parseInt(hoursBeforeStr) * 60 * 60 * 1000;
+        appointment.setReminderTime(reminderTime);
 
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this, ReminderReceiver.class);
-        intent.putExtra("title", appointmentTitle);
-        intent.putExtra("date", date);
-        intent.putExtra("time", time);
-        intent.putExtra("location", location);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        if (alarmManager != null) {
-            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-        }
-
-        // Display notification
-        showNotification(appointmentTitle, date, time, location);
+        db.collection("appointments").document(userId).set(appointment)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(AppointmentsActivity.this, "Appointment saved successfully!", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(AppointmentsActivity.this, "Failed to save appointment.", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
-    private void showNotification(String appointmentTitle, String date, String time, String location) {
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Appointment Reminder Channel";
-            String description = "Channel for appointment reminders";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-            channel.setDescription(description);
-            notificationManager.createNotificationChannel(channel);
-        }
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.reminder)
-                .setContentTitle("Appointment Reminder")
-                .setContentText("Your appointment \"" + appointmentTitle + "\" is scheduled on " + date + " at " + time + " in " + location)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-        Notification notification = builder.build();
-        notificationManager.notify(1, notification);
-    }
 }

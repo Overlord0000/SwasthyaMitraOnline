@@ -41,7 +41,7 @@ public class HealthProfileActivity extends AppCompatActivity {
 
                     // Check if user data exists for the current user in Firebase Realtime Database
                     DatabaseReference userRef = FirebaseDatabase.getInstance().getReference()
-                            .child("UserProfile").child(userId);
+                            .child("users").child(userId);
 
                     userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -84,8 +84,7 @@ public class HealthProfileActivity extends AppCompatActivity {
         Allergiesbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), AllergiesActivity.class);
-                startActivity(intent);
+                checkAndNavigateToAllergies();
             }
         });
 
@@ -168,36 +167,36 @@ public class HealthProfileActivity extends AppCompatActivity {
                     // Handle potential errors
                     Log.e("FamilyHistoryActivity", "Error reading family history data", databaseError.toException());
                     // Since we couldn't determine if medical history data exists or not, navigate to MedicalHistoryActivity by default
-                    //Intent intent = new Intent(getApplicationContext(), FamilyHistoryActivity.class);
-                    //startActivity(intent);
+                    Intent intent = new Intent(getApplicationContext(), FamilyHistoryActivity.class);
+                    startActivity(intent);
                 }
             });
         }
     }
 
+
     private void checkAndNavigateToAllergies() {
-        // Get the current user's ID
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
 
-            // Check if the medical history data node exists for the current user in Firebase Realtime Database
-            DatabaseReference medicalHistoryRef = FirebaseDatabase.getInstance().getReference()
-                    .child("MedicalHistory").child(userId).child("medical_history");
+            // Check if the allergies data node exists for the current user in Firebase Realtime Database
+            DatabaseReference allergiesRef = FirebaseDatabase.getInstance().getReference()
+                    .child("users").child("allergies").child(userId);
 
-            medicalHistoryRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            allergiesRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    // If the dataSnapshot exists, it means the medical history data exists for the current user
+                    // If the dataSnapshot exists, it means the allergies data exists for the current user
                     if (dataSnapshot.exists()) {
-                        // Medical history data exists
-                        // Proceed to EditMedicalHistoryActivity
-                        Intent intent = new Intent(getApplicationContext(), EditMedicalHistoryActivity.class);
+                        // Allergies data exists
+                        // Proceed to EditAllergiesActivity
+                        Intent intent = new Intent(getApplicationContext(), EditAllergiesActivity.class);
                         startActivity(intent);
                     } else {
-                        // Medical history data does not exist
-                        // Proceed to MedicalHistoryActivity
-                        Intent intent = new Intent(getApplicationContext(), MedicalHistoryActivity.class);
+                        // Allergies data does not exist
+                        // Proceed to AllergiesActivity
+                        Intent intent = new Intent(getApplicationContext(), AllergiesActivity.class);
                         startActivity(intent);
                     }
                 }
@@ -205,12 +204,13 @@ public class HealthProfileActivity extends AppCompatActivity {
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     // Handle potential errors
-                    Log.e("MedicalHistoryActivity", "Error reading medical history data", databaseError.toException());
-                    // Since we couldn't determine if medical history data exists or not, navigate to MedicalHistoryActivity by default
-                    Intent intent = new Intent(getApplicationContext(), MedicalHistoryActivity.class);
+                    Log.e("AllergiesActivity", "Error reading allergies data", databaseError.toException());
+                    // Since we couldn't determine if allergies data exists or not, navigate to AllergiesActivity by default
+                    Intent intent = new Intent(getApplicationContext(), AllergiesActivity.class);
                     startActivity(intent);
                 }
             });
         }
     }
+
 }

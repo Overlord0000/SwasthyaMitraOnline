@@ -24,7 +24,7 @@ public class DoctorsAndAppointmentsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Open AppointmentsActivity when Appointments button is clicked
-                startActivity(new Intent(DoctorsAndAppointmentsActivity.this, AppointmentsActivity.class));
+                startActivity(new Intent(DoctorsAndAppointmentsActivity.this,AddAppointmentActivity.class));
             }
         });
 

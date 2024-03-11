@@ -25,26 +25,16 @@ public class PastMedineActivity extends AppCompatActivity {
     private Button buttonSaveP;
 
     private FirebaseAuth mAuth;
-    private FirebaseDatabase mDatabase;
-    private DatabaseReference pastMedicineRef;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_past_medine);
 
-        // Initialize Firebase
         mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser == null) {
-            // Redirect user to login screen or handle appropriately
-            finish();
-        }
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        pastMedicineRef = mDatabase.getReference().child("past_medicines").child(currentUser.getUid());
-
-        // Initialize views
         editTextMedicationNameP = findViewById(R.id.editTextMedicationNameP);
         editTextDosageP = findViewById(R.id.editTextDosageP);
         editTextStartDateP = findViewById(R.id.editTextStartDateP);
@@ -52,54 +42,49 @@ public class PastMedineActivity extends AppCompatActivity {
         editTextNotesP = findViewById(R.id.editTextNotesP);
         spinnerFrequencyP = findViewById(R.id.spinnerFrequencyP);
         spinnerScheduleP = findViewById(R.id.spinnerScheduleP);
-        buttonSaveP = findViewById(R.id.buttonSaveP);
 
-        // Set click listener for the save button
+        buttonSaveP = findViewById(R.id.buttonSaveP);
         buttonSaveP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                savePastMedicine();
+                saveMedicationData();
             }
         });
     }
 
-    private void savePastMedicine() {
-        // Get user input values
-        String medicationName = editTextMedicationNameP.getText().toString().trim();
-        String dosage = editTextDosageP.getText().toString().trim();
-        String startDate = editTextStartDateP.getText().toString().trim();
-        String endDate = editTextEndDateP.getText().toString().trim();
-        String notes = editTextNotesP.getText().toString().trim();
-        String frequency = spinnerFrequencyP.getSelectedItem().toString();
-        String schedule = spinnerScheduleP.getSelectedItem().toString();
+    private void saveMedicationData() {
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null) {
+            String userId = user.getUid();
 
-        // Validate input
-        if (medicationName.isEmpty() || dosage.isEmpty() || startDate.isEmpty() || endDate.isEmpty() || notes.isEmpty()) {
-            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
-            return;
+            String medicationName = editTextMedicationNameP.getText().toString().trim();
+            String dosage = editTextDosageP.getText().toString().trim();
+            String frequency = spinnerFrequencyP.getSelectedItem().toString();
+            String schedule = spinnerScheduleP.getSelectedItem().toString();
+            String startDate = editTextStartDateP.getText().toString().trim();
+            String endDate = editTextEndDateP.getText().toString().trim();
+            String notes = editTextNotesP.getText().toString().trim();
+
+            Map<String, Object> medicationData = new HashMap<>();
+            medicationData.put("medicationName", medicationName);
+            medicationData.put("dosage", dosage);
+            medicationData.put("frequency", frequency);
+            medicationData.put("schedule", schedule);
+            medicationData.put("startDate", startDate);
+            medicationData.put("endDate", endDate);
+            medicationData.put("notes", notes);
+
+            mDatabase.child("users").child(userId).child("pastMedications").push().setValue(medicationData)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(PastMedineActivity.this, "Medication data saved successfully", Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            Toast.makeText(PastMedineActivity.this, "Failed to save medication data", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        } else {
+            Toast.makeText(PastMedineActivity.this, "User not logged in", Toast.LENGTH_SHORT).show();
         }
-
-        // Create a map to store past medicine data
-        Map<String, Object> pastMedicineMap = new HashMap<>();
-        pastMedicineMap.put("medicationName", medicationName);
-        pastMedicineMap.put("dosage", dosage);
-        pastMedicineMap.put("startDate", startDate);
-        pastMedicineMap.put("endDate", endDate);
-        pastMedicineMap.put("notes", notes);
-        pastMedicineMap.put("frequency", frequency);
-        pastMedicineMap.put("schedule", schedule);
-
-        // Save data to Firebase
-        pastMedicineRef.push().setValue(pastMedicineMap);
-
-        // Display success message
-        Toast.makeText(this, "Past medicine saved successfully", Toast.LENGTH_SHORT).show();
-
-        // Clear input fields
-        editTextMedicationNameP.setText("");
-        editTextDosageP.setText("");
-        editTextStartDateP.setText("");
-        editTextEndDateP.setText("");
-        editTextNotesP.setText("");
     }
 }

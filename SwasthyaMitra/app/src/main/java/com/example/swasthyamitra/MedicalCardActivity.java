@@ -56,7 +56,7 @@ public class MedicalCardActivity extends AppCompatActivity {
         }
 
         // Separate references for better organization
-        userRef = FirebaseDatabase.getInstance().getReference().child("UserProfile").child(currentUserId).child("user_profile").child(currentUserId);
+        userRef = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserId);//.child("user_profile").child(currentUserId);
         medicalHistoryRef = FirebaseDatabase.getInstance().getReference().child("MedicalHistory").child(currentUserId).child("medical_history");
 
         qrImageView = findViewById(R.id.QR);

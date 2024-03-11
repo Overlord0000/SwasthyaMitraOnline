@@ -140,7 +140,16 @@
         <item>Mild</item>
         <item>Moderate</item>
         <item>Severe</item>
+    </string-array>
+    <string-array name="spinnerFrequency">
+        <item>Once a Day</item>
+        <item>Twice a Day</item>
+        <item>Thrice a Day</item>
+    </string-array>
 
-
+    <string-array name="spinnerSchedule">
+        <item>Morning</item>
+        <item>After noon</item>
+        <item>Night</item>
     </string-array>
 </resources>

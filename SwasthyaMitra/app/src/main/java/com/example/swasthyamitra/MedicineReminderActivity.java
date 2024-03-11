@@ -28,7 +28,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class MedicineReminderActivity extends AppCompatActivity {
+public class  MedicineReminderActivity extends AppCompatActivity {
 
     private EditText etMedicineName, etDosageNumber, etDosageML, etFrequency;
     private ToggleButton toggleDosageType;

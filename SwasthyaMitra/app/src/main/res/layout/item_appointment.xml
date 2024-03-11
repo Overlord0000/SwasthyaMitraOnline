@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:layout_marginBottom="10dp"
+    android:id="@+id/item"
+    android:background="@drawable/rounded_corner"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/AppointmentTitle"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        tools:text="My title"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/AppointmentLocation"
+        android:layout_below="@id/AppointmentTitle"
+        android:textColor="#393939"
+        tools:text="Appointment at"/>
+
+    <TextView
+        android:id="@+id/appointmentdata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/AppointmentLocation"
+        android:gravity="end"
+        android:textColor="#858484"
+        android:textSize="12dp"
+        tools:ignore="TextSizeCheck"
+        tools:text="Dec 10 2023 " />
+
+</RelativeLayout>

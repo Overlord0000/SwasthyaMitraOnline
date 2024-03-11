@@ -71,6 +71,13 @@
                 android:layout_height="wrap_content"
                 android:text="Insect"/>
 
+            <CheckBox
+                android:id="@+id/checkBoxOther"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Other"/>
+
+
 
             <TextView
                 android:id="@+id/textViewSeverity"
