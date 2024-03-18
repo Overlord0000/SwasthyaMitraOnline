@@ -1,26 +1,32 @@
 package com.example.swasthyamitra;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class Appointment {
+
     private String id;
     private String title;
-    private String date;
-    private String time;
+    private long dateInMillis;
+    private long timeInMillis; // Added for consistency with time representation
     private String location;
-    private long reminderTime;
+    private int hoursBefore;
 
-    public Appointment() {}
-
-    public Appointment(String id, String title, String date, String time, String location, long reminderTime) {
+    // Constructor to create Appointment from date and time in milliseconds
+    public Appointment(String id, String title, long dateInMillis, long timeInMillis, String location, int hoursBefore) {
         this.id = id;
         this.title = title;
-        this.date = date;
-        this.time = time;
+        this.dateInMillis = dateInMillis;
+        this.timeInMillis = timeInMillis;
         this.location = location;
-        this.reminderTime = reminderTime;
+        this.hoursBefore = hoursBefore;
+    }
+    public Appointment() {
+        // Default constructor required for Firebase
     }
 
-    // Getters and setters
+    // Getters and setters for all fields
     public String getId() {
         return id;
     }
@@ -37,20 +43,20 @@ public class Appointment {
         this.title = title;
     }
 
-    public String getDate() {
-        return date;
+    public long getDateInMillis() {
+        return dateInMillis;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDateInMillis(long dateInMillis) {
+        this.dateInMillis = dateInMillis;
     }
 
-    public String getTime() {
-        return time;
+    public long getTimeInMillis() {
+        return timeInMillis;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setTimeInMillis(long timeInMillis) {
+        this.timeInMillis = timeInMillis;
     }
 
     public String getLocation() {
@@ -61,11 +67,31 @@ public class Appointment {
         this.location = location;
     }
 
-    public long getReminderTime() {
-        return reminderTime;
+    public int getHoursBefore() {
+        return hoursBefore;
     }
 
-    public void setReminderTime(long reminderTime) {
-        this.reminderTime = reminderTime;
+    public void setHoursBefore(int hoursBefore) {
+        this.hoursBefore = hoursBefore;
+    }
+
+    public long getDateInMillis(String dateStr) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        try {
+            return sdf.parse(dateStr).getTime();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public long getTimeInMillis(String timeStr) {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        try {
+            return sdf.parse(timeStr).getTime();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 }

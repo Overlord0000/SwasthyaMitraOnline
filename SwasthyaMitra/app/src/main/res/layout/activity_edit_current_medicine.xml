@@ -16,7 +16,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Current Medicine"
+            android:text="Edit Current Medicine"
             android:textSize="30dp"
             android:textStyle="bold"
             android:gravity="center"
@@ -29,7 +29,7 @@
             />
 
         <EditText
-            android:id="@+id/editTextMedicationName"
+            android:id="@+id/EdeditTextMedicationName"
             android:layout_width="match_parent"
             android:layout_height="38dp"
             android:paddingStart="10dp"
@@ -44,7 +44,7 @@
             android:text="Dosage" />
 
         <EditText
-            android:id="@+id/editTextDosage"
+            android:id="@+id/EdeditTextDosage"
             android:layout_width="match_parent"
             android:layout_height="38dp"
             android:paddingStart="10dp"
@@ -59,7 +59,7 @@
             android:text="Frequency" />
 
         <EditText
-            android:id="@+id/editTextFrequency"
+            android:id="@+id/EdFrequency"
             android:layout_width="match_parent"
             android:layout_height="38dp"
             android:paddingStart="10dp"
@@ -74,7 +74,7 @@
             android:text="Schedule" />
 
         <EditText
-            android:id="@+id/editTextSchedule"
+            android:id="@+id/EdSchedule"
             android:layout_width="match_parent"
             android:layout_height="38dp"
             android:paddingStart="10dp"
@@ -88,7 +88,7 @@
             android:text="Start Date" />
 
         <EditText
-            android:id="@+id/editTextStartDate"
+            android:id="@+id/EdeditTextStartDate"
             android:layout_width="match_parent"
             android:layout_height="38dp"
             android:paddingStart="10dp"
@@ -103,7 +103,7 @@
             android:text="End Date" />
 
         <EditText
-            android:id="@+id/editTextEndDate"
+            android:id="@+id/EdeditTextEndDate"
             android:layout_width="match_parent"
             android:layout_height="38dp"
             android:paddingStart="10dp"
@@ -118,7 +118,7 @@
             android:text="Notes" />
 
         <EditText
-            android:id="@+id/editTextNotes"
+            android:id="@+id/EdeditTextNotes"
             android:layout_width="match_parent"
             android:layout_height="38dp"
             android:paddingStart="10dp"
@@ -128,10 +128,10 @@
             />
 
         <Button
-            android:id="@+id/buttonSave"
+            android:id="@+id/buttonUpdateCurrentMedicine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Save"
+            android:text="Save &amp; Update"
             android:layout_marginTop="20dp"/>
     </LinearLayout>
 

@@ -23,8 +23,8 @@ public class DoctorsAndAppointmentsActivity extends AppCompatActivity {
         appointmentsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Open AppointmentsActivity when Appointments button is clicked
-                startActivity(new Intent(DoctorsAndAppointmentsActivity.this,AddAppointmentActivity.class));
+                // Open RecycAppointmentsActivity when Appointments button is clicked
+                startActivity(new Intent(DoctorsAndAppointmentsActivity.this, RecycleAppointmentActivity.class));
             }
         });
 

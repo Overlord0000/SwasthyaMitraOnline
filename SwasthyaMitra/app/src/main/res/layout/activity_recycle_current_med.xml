@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/regback"
+    android:padding="10dp"
+    tools:context=".RecycleCurrentMedActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/CurrentMedicinestitle"
+        android:text="Current Medicine"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerviewCM"
+        android:layout_width="393dp"
+        android:layout_height="611dp"
+        android:layout_below="@id/CurrentMedicinestitle"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/addnewCurrentMedtbtn"
+        android:layout_width="395dp"
+        android:layout_height="23dp"
+        android:layout_below="@id/recyclerviewCM"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="23dp"
+        android:backgroundTint="@color/white"
+        android:text="Add new Medicine"
+        android:textColor="#00B0FF" />
+
+
+
+</RelativeLayout>

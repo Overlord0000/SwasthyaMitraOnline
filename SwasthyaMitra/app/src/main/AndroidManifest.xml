@@ -17,10 +17,6 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-
-
-
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -32,10 +28,19 @@
         android:theme="@style/Theme.SwasthyaMitra"
         tools:targetApi="31">
         <activity
+            android:name=".AppointmentsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditCurrentMedicineActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RecycleCurrentMedActivity"
+            android:exported="false" />
+        <activity
             android:name=".EditPastMedicineActivity"
             android:exported="false" />
         <activity
-            android:name=".AddAppointmentActivity"
+            android:name=".RecycleAppointmentActivity"
             android:exported="false" />
         <activity
             android:name=".EditDoctorsNoteActivity"
@@ -64,11 +69,6 @@
         <activity
             android:name=".EditMedicalHistoryActivity"
             android:exported="false" />
-
-        <receiver
-            android:name=".ReminderReceiver"
-            android:enabled="true"
-            android:exported="true" />
 
 
         <activity
@@ -131,9 +131,7 @@
         <activity
             android:name=".CurrentMedicineActivity"
             android:exported="false" />
-        <activity
-            android:name=".AppointmentsActivity"
-            android:exported="false" />
+
         <activity
             android:name=".AllergiesActivity"
             android:exported="false" />
@@ -146,6 +144,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

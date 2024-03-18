@@ -1,37 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="100dp"
     android:padding="10dp"
     android:layout_marginBottom="10dp"
-    android:id="@+id/item"
+    android:id="@+id/CurrentMeditem"
     android:background="@drawable/rounded_corner"
     xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/AppointmentTitle"
+        android:id="@+id/CmedicineTitle"
         android:textSize="20dp"
         android:textColor="@color/black"
         tools:text="My title"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/AppointmentLocation"
-        android:layout_below="@id/AppointmentTitle"
+        android:id="@+id/CmedicineDosage"
+        android:layout_below="@id/CmedicineTitle"
         android:textColor="#393939"
-        tools:text="Appointment at"/>
+        tools:text="Current medicine dosage"/>
 
     <TextView
-        android:id="@+id/appointmentdate"
+        android:id="@+id/CmedicineStartDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/AppointmentLocation"
+        android:layout_below="@id/CmedicineDosage"
         android:gravity="end"
         android:textColor="#858484"
         android:textSize="12dp"
         tools:ignore="TextSizeCheck"
         tools:text="Dec 10 2023 " />
+
+    <TextView
+        android:id="@+id/CmedicineEndDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/CmedicineStartDate"
+        android:layout_alignParentEnd="true"
+        android:gravity="end"
+        android:textColor="#858484"
+        android:text="jan 15 2024"
+        android:textSize="12dp" />
 
 </RelativeLayout>

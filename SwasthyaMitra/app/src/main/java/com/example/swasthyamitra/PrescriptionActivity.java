@@ -41,7 +41,7 @@ public class PrescriptionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Open CurrentMedicineActivity
-                startActivity(new Intent(PrescriptionActivity.this, CurrentMedicineActivity.class));
+                startActivity(new Intent(PrescriptionActivity.this, RecycleCurrentMedActivity.class));
             }
         });
 

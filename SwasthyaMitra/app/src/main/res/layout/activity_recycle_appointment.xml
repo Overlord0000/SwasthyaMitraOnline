@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/regback"
     android:padding="10dp"
-    tools:context=".AddAppointmentActivity">
+    tools:context=".RecycleAppointmentActivity">
 
     <TextView
         android:layout_width="wrap_content"

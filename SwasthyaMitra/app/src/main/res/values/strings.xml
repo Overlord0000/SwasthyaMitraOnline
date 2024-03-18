@@ -152,4 +152,16 @@
         <item>After noon</item>
         <item>Night</item>
     </string-array>
+
+
+    <!-- Dosage format -->
+    <string name="dosage_format">Dosage: %1$d</string>
+
+    <!-- Start date format -->
+    <string name="start_date_format">Start Date: %1$s</string>
+
+    <!-- End date format -->
+    <string name="end_date_format">End Date: %1$s</string>
+
+
 </resources>
