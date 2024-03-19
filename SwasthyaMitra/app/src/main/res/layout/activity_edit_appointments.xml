@@ -1,0 +1,102 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:paddingLeft="10dp"
+    android:gravity="center"
+    tools:context=".EditAppointmentsActivity"
+    android:background="@drawable/regback">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/glass_morph">
+
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit Appointment Reminder"
+            android:layout_gravity="center"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_margin="16dp" />
+
+
+        <EditText
+            android:id="@+id/TitleAppointmentEd"
+            android:layout_width="match_parent"
+            android:layout_height="39dp"
+            android:hint="Appointment Title"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/input_bg"/>
+
+        <EditText
+            android:id="@+id/ViewDateEd"
+            android:layout_width="match_parent"
+            android:layout_height="39dp"
+            android:hint="Date"
+            android:paddingStart="15dp"
+            android:inputType="date"
+            android:paddingEnd="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/input_bg"/>
+
+        <EditText
+            android:id="@+id/TimeEd"
+            android:layout_width="match_parent"
+            android:layout_height="39dp"
+            android:hint="Time"
+            android:paddingStart="15dp"
+            android:inputType="time"
+            android:paddingEnd="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/input_bg"/>
+
+        <EditText
+            android:id="@+id/LocationEd"
+            android:layout_width="match_parent"
+            android:layout_height="39dp"
+            android:hint="Location"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/input_bg"/>
+
+
+
+        <TextView
+            android:id="@+id/textViewReminder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reminder:"
+            android:layout_marginTop="15dp"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            />
+
+        <EditText
+            android:id="@+id/HoursBeforeEd"
+            android:layout_width="wrap_content"
+            android:layout_height="39dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:inputType="number"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rectangle"
+            android:hint="Hours before" />
+
+        <Button
+            android:id="@+id/buttonUpdateReminder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Set Reminder"
+            android:layout_marginBottom="20dp" />
+
+    </LinearLayout>
+</LinearLayout>

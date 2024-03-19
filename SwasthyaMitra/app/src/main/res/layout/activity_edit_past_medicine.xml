@@ -18,7 +18,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/past_medicine"
+            android:text="Edit Past Medicine"
             android:textSize="30dp"
             android:textStyle="bold"
             android:gravity="center"
@@ -60,11 +60,12 @@
             android:layout_height="wrap_content"
             android:text="Frequency" />
 
-        <Spinner
-            android:id="@+id/EdspinnerFrequencyP"
+        <EditText
+            android:id="@+id/ededitTextFrequencyPM"
             android:layout_width="match_parent"
             android:layout_height="38dp"
             android:paddingStart="10dp"
+            android:hint="How many times a day"
             android:background="@drawable/input_bg"
             />
 
@@ -73,11 +74,12 @@
             android:layout_height="wrap_content"
             android:text="Schedule" />
 
-        <Spinner
-            android:id="@+id/EdspinnerScheduleP"
+        <EditText
+            android:id="@+id/ededitTextSchedulePM"
             android:layout_width="match_parent"
             android:layout_height="38dp"
             android:paddingStart="10dp"
+            android:hint="When you Take medicine eg. night"
             android:background="@drawable/input_bg"
             />
 

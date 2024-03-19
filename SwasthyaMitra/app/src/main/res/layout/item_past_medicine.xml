@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:padding="10dp"
+    android:layout_marginBottom="10dp"
+    android:id="@+id/pastMeditem"
+    android:background="@drawable/rounded_corner"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/PmedicineTitle"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        tools:text="My title"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/PmedicineDosage"
+        android:layout_below="@id/PmedicineTitle"
+        android:textColor="#393939"
+        tools:text="Current medicine dosage"/>
+
+    <TextView
+        android:id="@+id/PmedicineStartDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/PmedicineDosage"
+        android:gravity="end"
+        android:textColor="#858484"
+        android:textSize="12dp"
+        tools:ignore="TextSizeCheck"
+        tools:text="Dec 10 2023 " />
+
+    <TextView
+        android:id="@+id/PmedicineEndDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/PmedicineStartDate"
+        android:layout_alignParentEnd="true"
+        android:gravity="end"
+        android:textColor="#858484"
+        android:text="jan 15 2024"
+        android:textSize="12dp" />
+
+</RelativeLayout>

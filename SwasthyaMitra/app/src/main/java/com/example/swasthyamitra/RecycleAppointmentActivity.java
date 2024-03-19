@@ -1,5 +1,7 @@
 package com.example.swasthyamitra;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -84,12 +86,48 @@ public class RecycleAppointmentActivity extends AppCompatActivity implements App
     }
 
     @Override
-    public void onAppointmentClick(int position) {
-        // Handle item click
+    public void onAppointmentLongClick(int position) {
+        // Handle long click
+        Appointment appointment = appointmentList.get(position);
+        // Show a dialog or confirmation prompt for deletion
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Do you want to delete this appointment?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Delete the appointment
+                        deleteAppointment(appointment.getId());
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+
+    private void deleteAppointment(String appointmentId) {
+        appointmentRef.child(appointmentId).removeValue()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(RecycleAppointmentActivity.this, "Appointment deleted successfully", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(RecycleAppointmentActivity.this, "Failed to delete appointment: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override
-    public void onAppointmentLongClick(int position) {
-        // Handle long click
+    public void onAppointmentClick(int position) {
+        // Handle item click, open EditAppointmentActivity
+        // Get the clicked appointment
+        Appointment appointment = appointmentList.get(position);
+        // Start EditAppointmentActivity, passing appointment data if needed
+        Intent intent = new Intent(RecycleAppointmentActivity.this, EditAppointmentsActivity.class);
+        intent.putExtra("APPOINTMENT_ID", appointment.getId());
+        startActivity(intent);
     }
+
 }

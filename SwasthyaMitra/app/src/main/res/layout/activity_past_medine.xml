@@ -51,7 +51,7 @@
             android:layout_height="38dp"
             android:paddingStart="10dp"
             android:hint="@string/enter_dosage"
-            android:inputType="text"
+            android:inputType="number"
             android:background="@drawable/input_bg"
             />
 
@@ -60,11 +60,13 @@
             android:layout_height="wrap_content"
             android:text="Frequency" />
 
-        <Spinner
-            android:id="@+id/spinnerFrequencyP"
+        <EditText
+            android:id="@+id/editmedfrequency"
             android:layout_width="match_parent"
             android:layout_height="38dp"
             android:paddingStart="10dp"
+            android:inputType="number"
+            android:hint="How many times a day"
             android:background="@drawable/input_bg"
             />
 
@@ -73,11 +75,12 @@
             android:layout_height="wrap_content"
             android:text="Schedule" />
 
-        <Spinner
-            android:id="@+id/spinnerScheduleP"
+        <EditText
+            android:id="@+id/editTextSchedulePM"
             android:layout_width="match_parent"
             android:layout_height="38dp"
             android:paddingStart="10dp"
+            android:hint="When you Take medicine eg. night"
             android:background="@drawable/input_bg"
             />
 

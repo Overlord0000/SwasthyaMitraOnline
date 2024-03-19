@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-public class PopupService extends Service {
+public class    PopupService extends Service {
 
     private WindowManager windowManager;
     private LinearLayout popupLayout;

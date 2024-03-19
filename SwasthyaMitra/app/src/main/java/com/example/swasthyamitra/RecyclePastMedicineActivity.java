@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,85 +26,87 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecycleCurrentMedActivity extends AppCompatActivity implements CurrentMedAdapter.CurrentMedClickListener {
+public class RecyclePastMedicineActivity extends AppCompatActivity implements PastMedAdopter.PastMedClickListener {
 
     private RecyclerView recyclerView;
-    private CurrentMedAdapter currentMedAdapter;
-    private List<CurrentMedModel> currentMedList;
+    private PastMedAdopter pastMedAdapter;
+    private List<PastMedicine> pastMedicineList;
     private FirebaseAuth mAuth;
-    private DatabaseReference currentMedRef;
+    private DatabaseReference pastMedRef;
     private String userId;
+    Button addpastmed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recycle_current_med);
+        setContentView(R.layout.activity_recycle_past_medicine);
 
-        recyclerView = findViewById(R.id.recyclerviewCM);
+        recyclerView = findViewById(R.id.Pastrecyclerview);
         mAuth = FirebaseAuth.getInstance();
-        currentMedList = new ArrayList<>();
-        currentMedAdapter = new CurrentMedAdapter(this, currentMedList);
+        pastMedicineList = new ArrayList<>();
+        pastMedAdapter = new PastMedAdopter(this, pastMedicineList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(currentMedAdapter);
+        recyclerView.setAdapter(pastMedAdapter);
+        addpastmed = findViewById(R.id.addnewPastbtn);
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            userId =(String) currentUser.getUid();
-            currentMedRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("CurrentMedications");
-            fetchCurrentMedications();
+            userId = currentUser.getUid();
+            pastMedRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("PastMedications");
+            fetchPastMedications();
         } else {
             Toast.makeText(this, "User not authenticated", Toast.LENGTH_SHORT).show();
             finish();
         }
-
-        findViewById(R.id.addnewCurrentMedtbtn).setOnClickListener(new View.OnClickListener() {
+        addpastmed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RecycleCurrentMedActivity.this, CurrentMedicineActivity.class));
+                startActivity(new Intent(getApplicationContext(), PastMedineActivity.class));
+
             }
         });
     }
 
-    private void fetchCurrentMedications() {
-        currentMedRef.addValueEventListener(new ValueEventListener() {
+
+
+    private void fetchPastMedications() {
+        pastMedRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                currentMedList.clear();
+                pastMedicineList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    CurrentMedModel currentMed = snapshot.getValue(CurrentMedModel.class);
-                    if (currentMed != null) {
-                        currentMedList.add(currentMed);
+                    PastMedicine pastMed = snapshot.getValue(PastMedicine.class);
+                    if (pastMed != null) {
+                        pastMedicineList.add(pastMed);
                     }
                 }
-                currentMedAdapter.notifyDataSetChanged();
+                pastMedAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(RecycleCurrentMedActivity.this, "Failed to fetch medications: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(RecyclePastMedicineActivity.this, "Failed to fetch past medications: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     @Override
-    public void onCurrentMedClick(int position) {
-        // Handle item click by opening EditCurrentMedicineActivity
-        CurrentMedModel currentMed = currentMedList.get(position);
-        String currentMedId = currentMed.getId();
-        Intent intent = new Intent(RecycleCurrentMedActivity.this, EditCurrentMedicineActivity.class);
-        intent.putExtra("medicationId", currentMedId);
+    public void onPastMedClick(int position) {
+        PastMedicine pastMedicine = pastMedicineList.get(position);
+        Intent intent = new Intent(RecyclePastMedicineActivity.this, EditPastMedicineActivity.class);
+        intent.putExtra("pastMedicineId", pastMedicine.getId());
         startActivity(intent);
     }
 
     @Override
-    public void onCurrentMedLongClick(int position) {
-        // Handle long press by prompting the user to delete the current medicine
+    public void onPastMedLongClick(int position) {
+        PastMedicine pastMedicine = pastMedicineList.get(position);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Are you sure you want to delete this item?")
+        builder.setMessage("Are you sure you want to delete this past medicine?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        deleteCurrentMedicine(position);
+                        deletePastMedicine(pastMedicine.getId());
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -115,25 +118,19 @@ public class RecycleCurrentMedActivity extends AppCompatActivity implements Curr
                 .show();
     }
 
-
-    private void deleteCurrentMedicine(int position) {
-        CurrentMedModel currentMed = currentMedList.get(position);
-        String currentMedId = currentMed.getId();
-
-        DatabaseReference currentMedRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("CurrentMedications").child(currentMedId);
-        currentMedRef.removeValue()
+    private void deletePastMedicine(String pastMedicineId) {
+        pastMedRef.child(pastMedicineId).removeValue()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(RecycleCurrentMedActivity.this, "Item deleted successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RecyclePastMedicineActivity.this, "Past medicine deleted successfully", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(RecycleCurrentMedActivity.this, "Failed to delete item: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RecyclePastMedicineActivity.this, "Failed to delete past medicine: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
-
 }

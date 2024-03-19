@@ -28,6 +28,12 @@
         android:theme="@style/Theme.SwasthyaMitra"
         tools:targetApi="31">
         <activity
+            android:name=".RecyclePastMedicineActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditAppointmentsActivity"
+            android:exported="false" />
+        <activity
             android:name=".AppointmentsActivity"
             android:exported="false" />
         <activity
@@ -69,8 +75,6 @@
         <activity
             android:name=".EditMedicalHistoryActivity"
             android:exported="false" />
-
-
         <activity
             android:name=".WellnessActivity"
             android:exported="false" />
@@ -131,7 +135,6 @@
         <activity
             android:name=".CurrentMedicineActivity"
             android:exported="false" />
-
         <activity
             android:name=".AllergiesActivity"
             android:exported="false" />
@@ -144,7 +147,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

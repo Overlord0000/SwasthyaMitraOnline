@@ -48,30 +48,7 @@ public class PrescriptionActivity extends AppCompatActivity {
         pastMedicineBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Check if past_medicine data exists for the current user
-                FirebaseUser currentUser = mAuth.getCurrentUser();
-                if (currentUser != null) {
-                    String userId = currentUser.getUid();
-                    mDatabase.child("users").child(userId).child("past_medicine").addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.exists()) {
-                                // Past medicine data exists, open EditPastMedicineActivity
-                                startActivity(new Intent(PrescriptionActivity.this, EditPastMedicineActivity.class));
-                            } else {
-                                // Past medicine data does not exist, open PastMedicineActivity
-                                startActivity(new Intent(PrescriptionActivity.this, PastMedineActivity.class));
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                            Toast.makeText(PrescriptionActivity.this, "Unable to fetch data", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                } else {
-                    Toast.makeText(PrescriptionActivity.this, "Unable to fetch data", Toast.LENGTH_SHORT).show();
-                }
+                startActivity(new Intent(PrescriptionActivity.this, RecyclePastMedicineActivity.class));
             }
         });
     }

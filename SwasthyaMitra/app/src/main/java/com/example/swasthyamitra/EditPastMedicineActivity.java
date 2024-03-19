@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,14 +17,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class EditPastMedicineActivity extends AppCompatActivity {
 
     private EditText editTextMedicationNameP, editTextDosageP, editTextStartDateP, editTextEndDateP, editTextNotesP;
-    private Spinner spinnerFrequencyP, spinnerScheduleP;
+    private EditText editTextFrequencyPM, editTextSchedulePM;
     private Button buttonUpdateP;
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    private String pastMedicineId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +45,15 @@ public class EditPastMedicineActivity extends AppCompatActivity {
         editTextStartDateP = findViewById(R.id.EdeditTextStartDateP);
         editTextEndDateP = findViewById(R.id.EdeditTextEndDateP);
         editTextNotesP = findViewById(R.id.EdeditTextNotesP);
-        spinnerFrequencyP = findViewById(R.id.EdspinnerFrequencyP);
-        spinnerScheduleP = findViewById(R.id.EdspinnerScheduleP);
+        editTextFrequencyPM = findViewById(R.id.ededitTextFrequencyPM);
+        editTextSchedulePM = findViewById(R.id.ededitTextSchedulePM);
         buttonUpdateP = findViewById(R.id.buttonUpdateP);
+
+        // Retrieve past medicine ID from intent
+        pastMedicineId = getIntent().getStringExtra("pastMedicineId");
+
+        // Fetch and display past medicine data
+        fetchPastMedicineData();
 
         buttonUpdateP.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,16 +61,13 @@ public class EditPastMedicineActivity extends AppCompatActivity {
                 updatePastMedicine();
             }
         });
-
-        // Retrieve past medicine data
-        retrievePastMedicineData();
     }
 
-    private void retrievePastMedicineData() {
+    private void fetchPastMedicineData() {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
             String userId = user.getUid();
-            mDatabase.child("users").child(userId).child("past_medicine").addListenerForSingleValueEvent(new ValueEventListener() {
+            mDatabase.child("users").child(userId).child("PastMedications").child(pastMedicineId).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
@@ -67,14 +75,12 @@ public class EditPastMedicineActivity extends AppCompatActivity {
                         if (pastMedicine != null) {
                             // Set retrieved data to the UI elements
                             editTextMedicationNameP.setText(pastMedicine.getMedicationName());
-                            editTextDosageP.setText(pastMedicine.getDosage());
-                            editTextStartDateP.setText(pastMedicine.getStartDate());
-                            editTextEndDateP.setText(pastMedicine.getEndDate());
+                            editTextDosageP.setText(String.valueOf(pastMedicine.getDosage()));
+                            editTextStartDateP.setText(formatDate(pastMedicine.getStartDate()));
+                            editTextEndDateP.setText(formatDate(pastMedicine.getEndDate()));
                             editTextNotesP.setText(pastMedicine.getNotes());
-
-
-                            spinnerFrequencyP.setSelection(getIndex(spinnerFrequencyP, pastMedicine.getFrequency()));
-                             spinnerScheduleP.setSelection(getIndex(spinnerScheduleP, pastMedicine.getSchedule()));
+                            editTextFrequencyPM.setText(String.valueOf(pastMedicine.getFrequency()));
+                            editTextSchedulePM.setText(pastMedicine.getSchedule());
                         }
                     }
                 }
@@ -93,38 +99,43 @@ public class EditPastMedicineActivity extends AppCompatActivity {
             String userId = user.getUid();
 
             String medicationName = editTextMedicationNameP.getText().toString().trim();
-            String dosage = editTextDosageP.getText().toString().trim();
+            int dosage = Integer.parseInt(editTextDosageP.getText().toString().trim());
             String startDate = editTextStartDateP.getText().toString().trim();
             String endDate = editTextEndDateP.getText().toString().trim();
             String notes = editTextNotesP.getText().toString().trim();
-            String frequency = spinnerFrequencyP.getSelectedItem().toString();
-            String schedule = spinnerScheduleP.getSelectedItem().toString();
+            int frequency = Integer.parseInt(editTextFrequencyPM.getText().toString().trim());
+            String schedule = editTextSchedulePM.getText().toString().trim();
 
-            // Create a PastMedicine object
-            PastMedicine pastMedicine = new PastMedicine(medicationName, dosage, startDate, endDate, notes, frequency, schedule);
+            try {
+                // Convert startDate and endDate strings to Date objects
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+                Date startDateValue = dateFormat.parse(startDate);
+                Date endDateValue = dateFormat.parse(endDate);
 
-            // Save to Firebase
-            mDatabase.child("users").child(userId).child("past_medicine").setValue(pastMedicine)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(EditPastMedicineActivity.this, "Past medicine updated successfully", Toast.LENGTH_SHORT).show();
-                            finish();
-                        } else {
-                            Toast.makeText(EditPastMedicineActivity.this, "Failed to update past medicine", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                // Create a PastMedicine object
+                PastMedicine pastMedicine = new PastMedicine(pastMedicineId, medicationName, dosage, frequency, schedule, startDateValue, endDateValue, notes);
+
+                // Save to Firebase
+                mDatabase.child("users").child(userId).child("PastMedications").child(pastMedicineId).setValue(pastMedicine)
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(EditPastMedicineActivity.this, "Past medicine updated successfully", Toast.LENGTH_SHORT).show();
+                                finish();
+                            } else {
+                                Toast.makeText(EditPastMedicineActivity.this, "Failed to update past medicine", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            } catch (ParseException e) {
+                Toast.makeText(EditPastMedicineActivity.this, "Error parsing dates", Toast.LENGTH_SHORT).show();
+            }
         } else {
             Toast.makeText(EditPastMedicineActivity.this, "User not logged in", Toast.LENGTH_SHORT).show();
         }
     }
 
-    // Helper method to get the index of an item in the spinner
-    private int getIndex(Spinner spinner, String item) {
-        for (int i = 0; i < spinner.getCount(); i++) {
-            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(item)) {
-                return i;
-            }
-        }
-        return 0; // Default to the first item if not found
+    // Helper method to format Date object to string
+    private String formatDate(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+        return dateFormat.format(date);
     }
 }
